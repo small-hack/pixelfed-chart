@@ -171,8 +171,8 @@ externalValkey:
 valkey:
   # -- enable the bundled valkey sub chart from Bitnami.
   # Must set to true if externalValkey.enabled=false
-  enabled: false
-  fullnameOverride: ""
+  enabled: true
+  fullnameOverride: "valkey"
   global:
     storageClass: ""
 
@@ -218,8 +218,8 @@ valkey:
 postgresql:
   # -- enable the bundled postgresql sub chart from Bitnami.
   # Must set to true if externalDatabase.enabled=false
-  enabled: false
-  fullnameOverride: ""
+  enabled: true
+  fullnameOverride: "postgresql"
 
 pixelfed:
   # -- timezone for docker container
