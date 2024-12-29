@@ -41,6 +41,7 @@ spec:
               containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
+            # app data
             - name: APP_NAME
               value: {{ .Values.pixelfed.app.name }}
             - name: APP_ENV
@@ -53,6 +54,8 @@ spec:
             - name: APP_DOMAIN
               value: {{ . }}
             {{- end }}
+
+            # registration related
             - name: OPEN_REGISTRATION
               value: {{ .Values.pixelfed.open_registration | quote }}
             - name: ENFORCE_EMAIL_VERIFICATION
@@ -63,6 +66,8 @@ spec:
               value: {{ .Values.pixelfed.account_deletion | quote }}
             - name: OAUTH_ENABLED
               value: {{ .Values.pixelfed.oauth_enabled | quote }}
+
+            # limits
             - name: MIN_PASSWORD_LENGTH
               value: {{ .Values.pixelfed.min_password_length | quote }}
             - name: MAX_ACCOUNT_SIZE
@@ -85,6 +90,8 @@ spec:
               value: {{ .Values.pixelfed.stories_enabled | quote }}
             - name: ENABLE_CONFIG_CACHE
               value: {{ .Values.pixelfed.enable_config_cache | quote }}
+
+            # instance config
             - name: INSTANCE_DESCRIPTION
               value: {{ .Values.pixelfed.instance.description }}
             - name: INSTANCE_CONTACT_FORM
@@ -117,6 +124,8 @@ spec:
               value: {{ .Values.pixelfed.instance.cur_reg | quote }}
             - name: INSTANCE_SHOW_PEERS
               value: {{ .Values.pixelfed.instance.show_peers | quote }}
+
+            # public feed
             - name: PF_HIDE_NSFW_ON_PUBLIC_FEEDS
               value: {{ .Values.pixelfed.pf.hide_nsfw_on_public_feeds | quote }}
             - name: PF_LOCAL_AVATAR_TO_CLOUD
@@ -141,6 +150,81 @@ spec:
               value: {{ .Values.pixelfed.pf.optimize_videos | quote }}
             - name: PF_MAX_COLLECTION_LENGTH
               value: {{ .Values.pixelfed.pf.max_collection_length | quote }}
+
+            # Laravel Configuration
+            - name: SESSION_DRIVER
+              value: "database"
+            - name: CACHE_DRIVER
+              value: "redis"
+            - name: QUEUE_DRIVER
+              value: "redis"
+            - name: BROADCAST_DRIVER
+              value: "log"
+            - name: LOG_CHANNEL
+              value: "stack"
+            - name: HORIZON_PREFIX
+              value: "horizon-"
+
+            # activity pub
+            - name: ACTIVITY_PUB
+              value: "true"
+            - name: AP_REMOTE_FOLLOW
+              value: "true"
+            - name: AP_SHAREDINBOX
+              value: "true"
+            - name: AP_INBOX
+              value: "true"
+            - name: AP_OUTBOX
+              value: "true"
+
+            # redis
+            {{- with .Values.externalValkey.host }}
+            - name: REDIS_HOST
+              value: {{ . }}
+            {{- end }}
+            {{- with .Values.externalValkey.port }}
+            - name: REDIS_PORT
+              value: {{ . }}
+            {{- end }}
+            {{- with .Values.externalValkey.password }}
+            - name: REDIS_PASSWORD
+              value: {{ . }}
+            {{- end }}
+
+            # mail
+            - name: MAIL_DRIVER
+              value: "smtp"
+            - name: MAIL_HOST
+              value: "smtp.mailgun.org"
+            - name: MAIL_PORT
+              value: "587"
+            - name: MAIL_FROM_ADDRESS
+              value: "__CHANGE_ME__"
+            - name: MAIL_FROM_NAME
+              value: "${APP_NAME}"
+            - name: MAIL_USERNAME
+              value: ""
+            - name: MAIL_PASSWORD
+              value: ""
+            - name: MAIL_ENCRYPTION
+              value: "tls"
+
+            # db
+            - name: DB_CONNECTION
+              value: "pgsql"
+            - name: DB_HOST
+              value: "db"
+            - name: DB_USERNAME
+              value: "pixelfed"
+            - name: DB_PASSWORD
+              value: ""
+            - name: DB_DATABASE
+              value: "pixelfed_prod"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY
+              value: "false"
+
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
