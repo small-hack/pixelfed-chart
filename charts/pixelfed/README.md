@@ -10,6 +10,13 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | ---- | ------ | --- |
 | jessebot | <jessebot@linux.com> | <https://github.com/jessebot> |
 
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 16.3.4 |
+| oci://registry-1.docker.io/bitnamicharts | valkey | 2.2.1 |
+
 ## Values
 
 | Key | Type | Default | Description |

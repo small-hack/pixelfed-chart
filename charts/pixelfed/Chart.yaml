@@ -25,3 +25,14 @@ maintainers:
   - name: "jessebot"
     email: "jessebot@linux.com"
     url: "https://github.com/jessebot"
+
+dependencies:
+  - name: postgresql
+    version: 16.3.4
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: postgresql.enabled
+
+  - name: valkey
+    version: 2.2.1
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: valkey.enabled
