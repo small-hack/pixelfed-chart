@@ -21,6 +21,10 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
+      - name: Add dependency chart repos
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.6.1
 
@@ -49,6 +53,10 @@ jobs:
 
       - name: Install Helm
         uses: azure/setup-helm@v4
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.6.1
