@@ -178,18 +178,36 @@ spec:
               value: {{ .Values.pixelfed.activity_pub.outbox | quote }}
 
             # redis
-            {{- with .Values.externalValkey.host }}
             - name: REDIS_HOST
-              value: {{ . }}
-            {{- end }}
-            {{- with .Values.externalValkey.port }}
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalValkey.existingSecret }}
+                  name: {{ .Values.externalValkey.existingSecret }}
+                  key: {{ .Values.externalValkey.existingSecretKeys.host }}
+                  {{- else }}
+                  name: pixelfed-valkey
+                  key: host
+                  {{- end }}
             - name: REDIS_PORT
-              value: {{ . }}
-            {{- end }}
-            {{- with .Values.externalValkey.password }}
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalValkey.existingSecret }}
+                  name: {{ .Values.externalValkey.existingSecret }}
+                  key: {{ .Values.externalValkey.existingSecretKeys.port }}
+                  {{- else }}
+                  name: pixelfed-valkey
+                  key: port
+                  {{- end }}
             - name: REDIS_PASSWORD
-              value: {{ . }}
-            {{- end }}
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.externalValkey.existingSecret }}
+                  name: {{ .Values.externalValkey.existingSecret }}
+                  key: {{ .Values.externalValkey.existingSecretKeys.password }}
+                  {{- else }}
+                  name: pixelfed-valkey
+                  key: password
+                  {{- end }}
 
             # mail
             - name: MAIL_DRIVER
