@@ -54,37 +54,37 @@ spec:
               value: {{ . }}
             {{- end }}
             - name: OPEN_REGISTRATION
-              value: {{ .Values.pixelfed.open_registration }}
+              value: {{ .Values.pixelfed.open_registration | quote }}
             - name: ENFORCE_EMAIL_VERIFICATION
               value: {{ .Values.pixelfed.enforce_email_verification }}
             - name: IMAGE_QUALITY
-              value: {{ .Values.pixelfed.image_quality }}
+              value: {{ .Values.pixelfed.image_quality | quote }}
             - name: ACCOUNT_DELETION
-              value: {{ .Values.pixelfed.account_deletion }}
+              value: {{ .Values.pixelfed.account_deletion | quote }}
             - name: OAUTH_ENABLED
-              value: {{ .Values.pixelfed.oauth_enabled }}
+              value: {{ .Values.pixelfed.oauth_enabled | quote }}
             - name: MIN_PASSWORD_LENGTH
-              value: {{ .Values.pixelfed.min_password_length }}
+              value: {{ .Values.pixelfed.min_password_length | quote }}
             - name: MAX_ACCOUNT_SIZE
-              value: {{ .Values.pixelfed.max_account_size }}
+              value: {{ .Values.pixelfed.max_account_size | quote }}
             - name: MAX_PHOTO_SIZE
-              value: {{ .Values.pixelfed.max_photo_size }}
+              value: {{ .Values.pixelfed.max_photo_size | quote }}
             - name: MAX_AVATAR_SIZE
-              value: {{ .Values.pixelfed.max_avatar_size }}
+              value: {{ .Values.pixelfed.max_avatar_size | quote }}
             - name: MAX_CAPTION_LENGTH
-              value: {{ .Values.pixelfed.max_caption_length }}
+              value: {{ .Values.pixelfed.max_caption_length | quote }}
             - name: MAX_BIO_LENGTH
-              value: {{ .Values.pixelfed.max_bio_length }}
+              value: {{ .Values.pixelfed.max_bio_length | quote }}
             - name: MAX_NAME_LENGTH
-              value: {{ .Values.pixelfed.max_name_length }}
+              value: {{ .Values.pixelfed.max_name_length | quote }}
             - name: MAX_ALBUM_LENGTH
-              value: {{ .Values.pixelfed.max_album_length }}
+              value: {{ .Values.pixelfed.max_album_length | quote }}
             - name: FORCE_HTTPS_URLS
               value: {{ .Values.pixelfed.force_https_urls }}
             - name: STORIES_ENABLED
-              value: {{ .Values.pixelfed.stories_enabled }}
+              value: {{ .Values.pixelfed.stories_enabled | quote }}
             - name: ENABLE_CONFIG_CACHE
-              value: {{ .Values.pixelfed.enable_config_cache }}
+              value: {{ .Values.pixelfed.enable_config_cache | quote }}
             - name: INSTANCE_DESCRIPTION
               value: {{ .Values.pixelfed.instance.description }}
             - name: INSTANCE_CONTACT_FORM
