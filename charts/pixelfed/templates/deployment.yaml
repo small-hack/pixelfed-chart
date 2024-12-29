@@ -56,7 +56,7 @@ spec:
             - name: OPEN_REGISTRATION
               value: {{ .Values.pixelfed.open_registration | quote }}
             - name: ENFORCE_EMAIL_VERIFICATION
-              value: {{ .Values.pixelfed.enforce_email_verification }}
+              value: {{ .Values.pixelfed.enforce_email_verification | quote }}
             - name: IMAGE_QUALITY
               value: {{ .Values.pixelfed.image_quality | quote }}
             - name: ACCOUNT_DELETION
@@ -80,7 +80,7 @@ spec:
             - name: MAX_ALBUM_LENGTH
               value: {{ .Values.pixelfed.max_album_length | quote }}
             - name: FORCE_HTTPS_URLS
-              value: {{ .Values.pixelfed.force_https_urls }}
+              value: {{ .Values.pixelfed.force_https_urls | quote }}
             - name: STORIES_ENABLED
               value: {{ .Values.pixelfed.stories_enabled | quote }}
             - name: ENABLE_CONFIG_CACHE
