@@ -157,7 +157,7 @@ pixelfed:
   stories_enabled: false
 
   # -- Enable the config cache to allow you to manage settings via the admin dashboard
-  config_cache: true
+  enable_config_cache: true
 
   # -- Set the image optimization quality, between 1-100. Lower uses less space, higher more quality
   image_quality: 80

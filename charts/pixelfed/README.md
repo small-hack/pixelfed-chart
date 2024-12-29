@@ -42,7 +42,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.app.locale | string | `"en"` | change this to the language code of your pixelfed instance |
 | pixelfed.app.name | string | `"Pixelfed"` | The name of your server/instance |
 | pixelfed.app.url | string | `"https://localhost"` | change this to the domain of your pixelfed instance |
-| pixelfed.config_cache | bool | `true` | Enable the config cache to allow you to manage settings via the admin dashboard |
+| pixelfed.enable_config_cache | bool | `true` | Enable the config cache to allow you to manage settings via the admin dashboard |
 | pixelfed.enforce_email_verification | bool | `true` | Enforce email verification |
 | pixelfed.force_https_urls | bool | `true` | Force https url generation |
 | pixelfed.image_quality | int | `80` | Set the image optimization quality, between 1-100. Lower uses less space, higher more quality |
