@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  pixelfed:
+  - apiVersion: v2
+    appVersion: v0.12.3-nginx
+    created: "2024-12-29T17:49:36.142693516Z"
+    description: A Helm chart for deploying Pixelfed on Kubernetes
+    digest: 3c714a3395479faab15edf5ab2b6b417c6d04c98d2939ebf73c20c4845462332
+    name: pixelfed
+    type: application
+    urls:
+    - https://github.com/jessebot/pixelfed-chart/releases/download/pixelfed-0.1.0/pixelfed-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-12-29T17:49:36.142701891Z"
