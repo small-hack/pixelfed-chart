@@ -201,7 +201,7 @@ spec:
                   name: {{ .Values.pixelfed.mail.existingSecret }}
                   key: {{ .Values.pixelfed.mail.existingSecretKeys.host }}
                   {{- else }}
-                  name: mail-secret
+                  name: pixelfed-mail
                   key: host
                   {{- end }}
             - name: MAIL_PORT
@@ -211,7 +211,7 @@ spec:
                   name: {{ .Values.pixelfed.mail.existingSecret }}
                   key: {{ .Values.pixelfed.mail.existingSecretKeys.port }}
                   {{- else }}
-                  name: mail-secret
+                  name: pixelfed-mail
                   key: port
                   {{- end }}
             - name: MAIL_FROM_ADDRESS
@@ -225,7 +225,7 @@ spec:
                   name: {{ .Values.pixelfed.mail.existingSecret }}
                   key: {{ .Values.pixelfed.mail.existingSecretKeys.username }}
                   {{- else }}
-                  name: mail-secret
+                  name: pixelfed-mail
                   key: username
                   {{- end }}
             - name: MAIL_PASSWORD
@@ -235,7 +235,7 @@ spec:
                   name: {{ .Values.pixelfed.mail.existingSecret }}
                   key: {{ .Values.pixelfed.mail.existingSecretKeys.password }}
                   {{- else }}
-                  name: mail-secret
+                  name: pixelfed-mail
                   key: password
                   {{- end }}
             - name: MAIL_ENCRYPTION
@@ -247,28 +247,53 @@ spec:
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
+                  {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
-                  key: {{ .Values.externalDatabase.existingSecretKeys.host }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.username }}
+                  {{- else }}
+                  name: pixelfed-database
+                  key: host
+                  {{- end }}
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
+                  {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
                   key: {{ .Values.externalDatabase.existingSecretKeys.username }}
+                  {{- else }}
+                  name: pixelfed-database
+                  key: username
+                  {{- end }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
+                  {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
-                  key: {{ .Values.externalDatabase.existingSecretKeys.password }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.username }}
+                  {{- else }}
+                  name: pixelfed-database
+                  key: password
+                  {{- end }}
             - name: DB_DATABASE
               valueFrom:
                 secretKeyRef:
+                  {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
-                  key: {{ .Values.externalDatabase.existingSecretKeys.database }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.username }}
+                  {{- else }}
+                  name: pixelfed-database
+                  key: database
+                  {{- end }}
             - name: DB_PORT
               valueFrom:
                 secretKeyRef:
+                  {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
-                  key: {{ .Values.externalDatabase.existingSecretKeys.port }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.username }}
+                  {{- else }}
+                  name: pixelfed-database
+                  key: port
+                  {{- end }}
             - name: DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY
               value: "{{ .Values.pixelfed.db_apply_new_migrations_automatically }}"
 
