@@ -1,0 +1,115 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pixelfed-env
+data:
+  env: |-
+    # app config vars
+    APP_NAME={{ .Values.pixelfed.app.name }}
+    APP_ENV={{ .Values.pixelfed.app.env }}
+    APP_URL={{ .Values.pixelfed.app.url }}
+    APP_LOCALE={{ .Values.pixelfed.app.locale }}
+    {{- with .Values.pixelfed.app.domain }}
+    APP_DOMAIN={{ . }}
+    {{- end }}
+
+    # registration related env vars
+    OPEN_REGISTRATION={{ .Values.pixelfed.open_registration | quote }}
+    ENFORCE_EMAIL_VERIFICATION={{ .Values.pixelfed.enforce_email_verification | quote }}
+    ACCOUNT_DELETION={{ .Values.pixelfed.account_deletion | quote }}
+    OAUTH_ENABLED={{ .Values.pixelfed.oauth_enabled | quote }}
+
+    MIN_PASSWORD_LENGTH={{ .Values.pixelfed.min_password_length | quote }}
+    MAX_ACCOUNT_SIZE={{ .Values.pixelfed.max_account_size | quote }}
+    MAX_PHOTO_SIZE={{ .Values.pixelfed.max_photo_size | quote }}
+    MAX_AVATAR_SIZE={{ .Values.pixelfed.max_avatar_size | quote }}
+    MAX_CAPTION_LENGTH={{ .Values.pixelfed.max_caption_length | quote }}
+    MAX_BIO_LENGTH={{ .Values.pixelfed.max_bio_length | quote }}
+    MAX_NAME_LENGTH={{ .Values.pixelfed.max_name_length | quote }}
+    MAX_ALBUM_LENGTH={{ .Values.pixelfed.max_album_length | quote }}
+    FORCE_HTTPS_URLS={{ .Values.pixelfed.force_https_urls | quote }}
+
+    # misc
+    STORIES_ENABLED={{ .Values.pixelfed.stories_enabled | quote }}
+    ENABLE_CONFIG_CACHE={{ .Values.pixelfed.enable_config_cache | quote }}
+    IMAGE_QUALITY={{ .Values.pixelfed.image_quality | quote }}
+
+    # instance wide configuration
+    INSTANCE_DESCRIPTION={{ .Values.pixelfed.instance.description }}
+    INSTANCE_CONTACT_FORM={{ .Values.pixelfed.instance.contact_form | quote }}
+    INSTANCE_DISCOVER_PUBLIC={{ .Values.pixelfed.instance.discover_public | quote }}
+    INSTANCE_PUBLIC_HASHTAGS={{ .Values.pixelfed.instance.public_hashtags | quote }}
+    {{- with .Values.pixelfed.instance.contact_email }}
+    INSTANCE_CONTACT_EMAIL={{ .Values.pixelfed.instance.contact_email }}
+    {{- end }}
+    INSTANCE_PROFILE_EMBEDS={{ .Values.pixelfed.instance.profile_embeds | quote }}
+    INSTANCE_POST_EMBEDS={{ .Values.pixelfed.instance.post_embeds | quote }}
+    INSTANCE_REPORTS_EMAIL_ENABLED={{ .Values.pixelfed.instance.reports.email_enabled | quote }}
+    {{- with .Values.pixelfed.instance.reports.email_addresses }}
+    INSTANCE_REPORTS_EMAIL_ADDRESSES={{ join "," . }}
+    {{- end }}
+    INSTANCE_REPORTS_EMAIL_AUTOSPAM={{ .Values.pixelfed.instance.reports.email_autospam | quote }}
+    INSTANCE_LANDING_SHOW_DIRECTORY={{ .Values.pixelfed.instance.landing.show_directory | quote }}
+    INSTANCE_LANDING_SHOW_EXPLORE={{ .Values.pixelfed.instance.landing.show_explore | quote }}
+    INSTANCE_CUR_REG={{ .Values.pixelfed.instance.cur_reg | quote }}
+    INSTANCE_SHOW_PEERS={{ .Values.pixelfed.instance.show_peers | quote }}
+
+    # pixelfed config
+    PF_HIDE_NSFW_ON_PUBLIC_FEEDS={{ .Values.pixelfed.pf.hide_nsfw_on_public_feeds | quote }}
+    PF_LOCAL_AVATAR_TO_CLOUD={{ .Values.pixelfed.pf.local_avatar_to_cloud | quote }}
+    PF_ADMIN_INVITES_ENABLED={{ .Values.pixelfed.pf.admin_invites_enabled | quote }}
+    PF_MAX_USER_BLOCKS={{ .Values.pixelfed.pf.max_user_blocks | quote }}
+    PF_MAX_USER_MUTES={{ .Values.pixelfed.pf.max_user_mutes | quote }}
+    PF_MAX_DOMAIN_BLOCKS={{ .Values.pixelfed.pf.max_domain_blocks | quote }}
+    PF_ENABLE_CLOUD={{ .Values.pixelfed.pf.enable_cloud | quote }}
+    PF_MAX_USERS={{ .Values.pixelfed.pf.max_users | quote }}
+    PF_ENFORCE_MAX_USERS={{ .Values.pixelfed.pf.enforce_max_users | quote }}
+    PF_OPTIMIZE_IMAGES={{ .Values.pixelfed.pf.optimize_images | quote }}
+    PF_OPTIMIZE_VIDEOS={{ .Values.pixelfed.pf.optimize_videos | quote }}
+    PF_MAX_COLLECTION_LENGTH={{ .Values.pixelfed.pf.max_collection_length | quote }}
+
+    # Laravel Configuration
+    SESSION_DRIVER="redis"
+    CACHE_DRIVER="redis"
+    QUEUE_DRIVER="redis"
+    BROADCAST_DRIVER="log"
+    LOG_CHANNEL="stack"
+    HORIZON_PREFIX="horizon-"
+
+    # activity pub
+    ACTIVITY_PUB={{ .Values.pixelfed.activity_pub.enabled | quote }}
+    AP_REMOTE_FOLLOW={{ .Values.pixelfed.activity_pub.remote_follow | quote }}
+    AP_SHAREDINBOX={{ .Values.pixelfed.activity_pub.sharedinbox | quote }}
+    AP_INBOX={{ .Values.pixelfed.activity_pub.inbox | quote }}
+    AP_OUTBOX={{ .Values.pixelfed.activity_pub.outbox | quote }}
+
+    # redis
+    {{- with .Values.externalValkey.host }}
+    REDIS_HOST={{ . }}
+    {{- end }}
+    {{- with .Values.externalValkey.port }}
+    REDIS_PORT={{ . }}
+    {{- end }}
+    {{- with .Values.externalValkey.password }}
+    REDIS_PASSWORD={{ . }}
+    {{- end }}
+
+    # mail
+    MAIL_DRIVER="smtp"
+    MAIL_HOST="smtp.mailgun.org"
+    MAIL_PORT="587"
+    MAIL_FROM_ADDRESS="__CHANGE_ME__"
+    MAIL_FROM_NAME="${APP_NAME}"
+    MAIL_USERNAME=""
+    MAIL_PASSWORD=""
+    MAIL_ENCRYPTION="tls"
+
+    # db
+    DB_CONNECTION="pgsql"
+    DB_HOST="db"
+    DB_USERNAME="pixelfed"
+    DB_PASSWORD=
+    DB_DATABASE="pixelfed_prod"
+    DB_PORT="3306"
+    DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY="false"

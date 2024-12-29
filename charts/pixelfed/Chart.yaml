@@ -15,8 +15,24 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.0
+version: 0.2.0
 
 # This is the version number of the application being deployed.
-# image=ghcr.io/mattlqx/docker-pixelfed
+# renovate:image=ghcr.io/mattlqx/docker-pixelfed
 appVersion: "v0.12.3-nginx"
+
+maintainers:
+  - name: "jessebot"
+    email: "jessebot@linux.com"
+    url: "https://github.com/jessebot"
+
+dependencies:
+  - name: postgresql
+    version: 16.3.4
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: postgresql.enabled
+
+  - name: valkey
+    version: 2.2.1
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: valkey.enabled
