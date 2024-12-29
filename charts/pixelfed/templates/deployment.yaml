@@ -167,15 +167,15 @@ spec:
 
             # activity pub
             - name: ACTIVITY_PUB
-              value: "true"
+              value: {{ .Values.pixelfed.activity_pub.enabled | quote }}
             - name: AP_REMOTE_FOLLOW
-              value: "true"
+              value: {{ .Values.pixelfed.activity_pub.remote_follow | quote }}
             - name: AP_SHAREDINBOX
-              value: "true"
+              value: {{ .Values.pixelfed.activity_pub.sharedinbox | quote }}
             - name: AP_INBOX
-              value: "true"
+              value: {{ .Values.pixelfed.activity_pub.inbox | quote }}
             - name: AP_OUTBOX
-              value: "true"
+              value: {{ .Values.pixelfed.activity_pub.outbox | quote }}
 
             # redis
             {{- with .Values.externalValkey.host }}
@@ -193,37 +193,84 @@ spec:
 
             # mail
             - name: MAIL_DRIVER
-              value: "smtp"
+              value: "{{ .Values.pixelfed.mail.driver }}"
             - name: MAIL_HOST
-              value: "smtp.mailgun.org"
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.pixelfed.mail.existingSecret }}
+                  name: {{ .Values.pixelfed.mail.existingSecret }}
+                  key: {{ .Values.pixelfed.mail.existingSecretKeys.host }}
+                  {{- else }}
+                  name: mail-secret
+                  key: host
+                  {{- end }}
             - name: MAIL_PORT
-              value: "587"
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.pixelfed.mail.existingSecret }}
+                  name: {{ .Values.pixelfed.mail.existingSecret }}
+                  key: {{ .Values.pixelfed.mail.existingSecretKeys.port }}
+                  {{- else }}
+                  name: mail-secret
+                  key: port
+                  {{- end }}
             - name: MAIL_FROM_ADDRESS
-              value: "__CHANGE_ME__"
+              value: "{{ .Values.pixelfed.mail.from_address }}"
             - name: MAIL_FROM_NAME
-              value: "${APP_NAME}"
+              value: "{{ .Values.pixelfed.mail.from_name }}"
             - name: MAIL_USERNAME
-              value: ""
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.pixelfed.mail.existingSecret }}
+                  name: {{ .Values.pixelfed.mail.existingSecret }}
+                  key: {{ .Values.pixelfed.mail.existingSecretKeys.username }}
+                  {{- else }}
+                  name: mail-secret
+                  key: username
+                  {{- end }}
             - name: MAIL_PASSWORD
-              value: ""
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.pixelfed.mail.existingSecret }}
+                  name: {{ .Values.pixelfed.mail.existingSecret }}
+                  key: {{ .Values.pixelfed.mail.existingSecretKeys.password }}
+                  {{- else }}
+                  name: mail-secret
+                  key: password
+                  {{- end }}
             - name: MAIL_ENCRYPTION
-              value: "tls"
+              value: "{{ .Values.pixelfed.mail.encryption }}"
 
-            # db
+            # database configuration
             - name: DB_CONNECTION
-              value: "pgsql"
+              value: {{ .Values.externalDatabase.connection }}
             - name: DB_HOST
-              value: "db"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalDatabase.existingSecret }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.host }}
             - name: DB_USERNAME
-              value: "pixelfed"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalDatabase.existingSecret }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.username }}
             - name: DB_PASSWORD
-              value: ""
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalDatabase.existingSecret }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.password }}
             - name: DB_DATABASE
-              value: "pixelfed_prod"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalDatabase.existingSecret }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.database }}
             - name: DB_PORT
-              value: "3306"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalDatabase.existingSecret }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.port }}
             - name: DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY
-              value: "false"
+              value: "{{ .Values.pixelfed.db_apply_new_migrations_automatically }}"
 
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}

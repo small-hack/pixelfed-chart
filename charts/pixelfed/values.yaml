@@ -222,6 +222,9 @@ postgresql:
   fullnameOverride: "postgresql"
 
 pixelfed:
+  # -- Automatically run [artisan migrate --force] if new migrations are detected.
+  db_apply_new_migrations_automatically: false
+
   # -- timezone for docker container
   timezone: "europe/amsterdam"
 

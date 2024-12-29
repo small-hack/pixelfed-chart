@@ -78,11 +78,11 @@ data:
     HORIZON_PREFIX="horizon-"
 
     # activity pub
-    ACTIVITY_PUB="true"
-    AP_REMOTE_FOLLOW="true"
-    AP_SHAREDINBOX="true"
-    AP_INBOX="true"
-    AP_OUTBOX="true"
+    ACTIVITY_PUB={{ .Values.pixelfed.activity_pub.enabled | quote }}
+    AP_REMOTE_FOLLOW={{ .Values.pixelfed.activity_pub.remote_follow | quote }}
+    AP_SHAREDINBOX={{ .Values.pixelfed.activity_pub.sharedinbox | quote }}
+    AP_INBOX={{ .Values.pixelfed.activity_pub.inbox | quote }}
+    AP_OUTBOX={{ .Values.pixelfed.activity_pub.outbox | quote }}
 
     # redis
     {{- with .Values.externalValkey.host }}

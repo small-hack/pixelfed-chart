@@ -76,6 +76,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.app.name | string | `"Pixelfed"` | The name of your server/instance |
 | pixelfed.app.url | string | `"https://localhost"` | change this to the domain of your pixelfed instance |
 | pixelfed.atom_feeds | string | `"true"` | https://docs.pixelfed.org/technical-documentation/config/#atom_feeds |
+| pixelfed.db_apply_new_migrations_automatically | bool | `false` |  |
 | pixelfed.enable_config_cache | bool | `true` | Enable the config cache to allow you to manage settings via the admin dashboard |
 | pixelfed.enforce_email_verification | bool | `true` | Enforce email verification |
 | pixelfed.exp_emc | bool | `true` | Experimental Configuration |
