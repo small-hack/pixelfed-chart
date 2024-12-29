@@ -123,6 +123,8 @@ tolerations: []
 affinity: {}
 
 externalDatabase:
+  # -- enable using an external mysql or postgresql cluster
+  enabled: false
   # -- options: sqlite mysql pgsql sqlsrv
   connection: psql
   host: ""
@@ -154,6 +156,8 @@ externalDatabase:
 
 # External Redis Configuration. Use this if you set valkey.enabled: false
 externalValkey:
+  # -- enable using an external valkey or redis cluster
+  enabled: false
   client: "phpredis"
   scheme: "tcp"
   host: "valkey"
