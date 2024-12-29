@@ -103,8 +103,10 @@ spec:
               value: {{ .Values.pixelfed.instance.post_embeds | quote }}
             - name: INSTANCE_REPORTS_EMAIL_ENABLED
               value: {{ .Values.pixelfed.instance.reports.email_enabled | quote }}
+            {{- with .Values.pixelfed.instance.reports.email_addresses }}
             - name: INSTANCE_REPORTS_EMAIL_ADDRESSES
-              value: {{ join "," .Values.pixelfed.instance.reports.email_addresses }}
+              value: {{ join "," . }}
+            {{- end }}
             - name: INSTANCE_REPORTS_EMAIL_AUTOSPAM
               value: {{ .Values.pixelfed.instance.reports.email_autospam | quote }}
             - name: INSTANCE_LANDING_SHOW_DIRECTORY
