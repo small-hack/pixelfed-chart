@@ -1,7 +1,7 @@
 # Pixelfed helm chart
 <a href="https://github.com/small-hack/pixelfed-chart/releases"><img src="https://img.shields.io/github/v/release/small-hack/pixelfed-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a><br />
 
-A helm chart to setup [Pixelfed](https://pixelfed.org/). Uses matt's docker [image](ghcr.io/mattlqx/docker-pixelfed) for now. This is still in a testing phase and may not be stable.
+A helm chart to setup [Pixelfed](https://pixelfed.org/). Uses matt's docker [image](https://ghcr.io/mattlqx/docker-pixelfed) for now. This is still in a testing phase and may not be stable.
 
 ## Features
 
