@@ -194,6 +194,8 @@ valkey:
 
   # primary (control plane) configuration
   primary:
+    disableCommands: # Laravel requires the ability to call FLUSHDB, which is disabled by default
+      - FLUSHALL
     persistence:
       enabled: true
       existingClaim: ""
