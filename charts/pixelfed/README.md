@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.3-nginx](https://img.shields.io/badge/AppVersion-v0.12.3--nginx-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.3-nginx](https://img.shields.io/badge/AppVersion-v0.12.3--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -26,7 +26,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| externalDatabase.connection | string | `"psql"` | options: sqlite mysql pgsql sqlsrv |
+| externalDatabase.connection | string | `"pgsql"` | options: sqlite mysql pgsql sqlsrv |
 | externalDatabase.database | string | `"pixelfed"` |  |
 | externalDatabase.enabled | bool | `false` | enable using an external mysql or postgresql cluster |
 | externalDatabase.existingSecret | string | `""` | get database credentials from an existing Kubernetes Secret |
