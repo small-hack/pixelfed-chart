@@ -179,25 +179,23 @@ spec:
 
             # redis
             - name: REDIS_HOST
+              {{- if .Values.externalValkey.existingSecret }}
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.externalValkey.existingSecret }}
                   name: {{ .Values.externalValkey.existingSecret }}
                   key: {{ .Values.externalValkey.existingSecretKeys.host }}
-                  {{- else }}
-                  name: pixelfed-valkey
-                  key: host
-                  {{- end }}
+              {{- else }}
+              value: {{ printf "%s-headless" (.Values.valkey.fullnameOverride) }}
+              {{- end }}
             - name: REDIS_PORT
+              {{- if .Values.externalValkey.existingSecret }}
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.externalValkey.existingSecret }}
                   name: {{ .Values.externalValkey.existingSecret }}
                   key: {{ .Values.externalValkey.existingSecretKeys.port }}
-                  {{- else }}
-                  name: pixelfed-valkey
-                  key: port
-                  {{- end }}
+              {{- else }}
+              value: {{ .Values.valkey.primary.service.ports.valkey | quote }}
+              {{- end }}
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -205,8 +203,8 @@ spec:
                   name: {{ .Values.externalValkey.existingSecret }}
                   key: {{ .Values.externalValkey.existingSecretKeys.password }}
                   {{- else }}
-                  name: pixelfed-valkey
-                  key: password
+                  name: {{ .Values.valkey.fullnameOverride }}
+                  key: valkey-password
                   {{- end }}
 
             # mail
@@ -263,55 +261,51 @@ spec:
             - name: DB_CONNECTION
               value: {{ .Values.externalDatabase.connection }}
             - name: DB_HOST
+              {{- if .Values.externalDatabase.existingSecret }}
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
-                  key: {{ .Values.externalDatabase.existingSecretKeys.username }}
-                  {{- else }}
-                  name: pixelfed-database
-                  key: host
-                  {{- end }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.host }}
+              {{- else }}
+              value: {{  printf "%s-hl" (.Values.postgresql.fullnameOverride)  }}
+              {{- end }}
             - name: DB_USERNAME
+              {{- if .Values.externalDatabase.existingSecret }}
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
                   key: {{ .Values.externalDatabase.existingSecretKeys.username }}
-                  {{- else }}
-                  name: pixelfed-database
-                  key: username
-                  {{- end }}
+              {{- else }}
+              value: postgres
+              {{- end }}
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
-                  key: {{ .Values.externalDatabase.existingSecretKeys.username }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.password }}
                   {{- else }}
-                  name: pixelfed-database
-                  key: password
+                  name: {{ .Values.postgresql.fullnameOverride }}
+                  key: postgres-password
                   {{- end }}
             - name: DB_DATABASE
+              {{- if .Values.externalDatabase.existingSecret }}
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
-                  key: {{ .Values.externalDatabase.existingSecretKeys.username }}
-                  {{- else }}
-                  name: pixelfed-database
-                  key: database
-                  {{- end }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.database }}
+              {{- else }}
+              value: {{ .Values.postgresql.primary.name }}
+              {{- end }}
             - name: DB_PORT
+              {{- if .Values.externalDatabase.existingSecret }}
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
-                  key: {{ .Values.externalDatabase.existingSecretKeys.username }}
-                  {{- else }}
-                  name: pixelfed-database
-                  key: port
-                  {{- end }}
+                  key: {{ .Values.externalDatabase.existingSecretKeys.port }}
+              {{- else }}
+              value: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
+              {{- end }}
             - name: DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY
               value: "{{ .Values.pixelfed.db_apply_new_migrations_automatically }}"
 
