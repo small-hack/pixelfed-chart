@@ -14,8 +14,14 @@ A Helm chart for deploying Pixelfed on Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 16.3.4 |
-| oci://registry-1.docker.io/bitnamicharts | valkey | 2.2.1 |
+| oci://registry-1.docker.io/bitnamicharts | [postgresql](https://github.com/bitnami/charts/blob/main/bitnami/postgresql/README.md#parameters) | 16.3.4 |
+| oci://registry-1.docker.io/bitnamicharts | [valkey](https://github.com/bitnami/charts/blob/main/bitnami/valkey/README.md#parameters) | 2.2.1 |
+
+### Storage
+
+By default, the deployments of valkey and postgresql create persistent storage using dynamic volume provisioning. The default storage class for these is unset, but can be set with the values `valkey.global.defaultStorageClass` and `postgresql.global.defaultStorageClass` respectively.
+
+Additional storage options can be found in each subchart's documentation.
 
 ## Values
 
@@ -156,6 +162,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | podSecurityContext | object | `{}` |  |
 | postgresql.enabled | bool | `true` | enable the bundled postgresql sub chart from Bitnami. Must set to true if externalDatabase.enabled=false |
 | postgresql.fullnameOverride | string | `"postgresql"` |  |
+| postgresql.global.storageClass | string | `""` |  |
 | readinessProbe.httpGet.path | string | `"/"` |  |
 | readinessProbe.httpGet.port | string | `"http"` |  |
 | replicaCount | int | `1` | This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/ |
