@@ -224,6 +224,9 @@ postgresql:
   # Must set to true if externalDatabase.enabled=false
   enabled: true
   fullnameOverride: "postgresql"
+  
+  global:
+    storageClass: ""
 
 pixelfed:
   # -- Automatically run [artisan migrate --force] if new migrations are detected.
