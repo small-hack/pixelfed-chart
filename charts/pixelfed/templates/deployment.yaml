@@ -38,7 +38,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
           env:
             # app data
@@ -46,6 +46,8 @@ spec:
               value: {{ .Values.pixelfed.app.name }}
             - name: APP_ENV
               value: {{ .Values.pixelfed.app.env }}
+            - name: APP_PORT
+              value: {{ .Values.service.targetPort | quote}}
             - name: APP_URL
               value: {{ .Values.pixelfed.app.url }}
             - name: APP_LOCALE
