@@ -126,7 +126,7 @@ externalDatabase:
   # -- enable using an external mysql or postgresql cluster
   enabled: false
   # -- options: sqlite mysql pgsql sqlsrv
-  connection: psql
+  connection: pgsql
   host: ""
   port: 3306
   database: pixelfed

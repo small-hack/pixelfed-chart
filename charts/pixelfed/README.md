@@ -32,7 +32,7 @@ Additional storage options can be found in each subchart's documentation.
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| externalDatabase.connection | string | `"psql"` | options: sqlite mysql pgsql sqlsrv |
+| externalDatabase.connection | string | `"pgsql"` | options: sqlite mysql pgsql sqlsrv |
 | externalDatabase.database | string | `"pixelfed"` |  |
 | externalDatabase.enabled | bool | `false` | enable using an external mysql or postgresql cluster |
 | externalDatabase.existingSecret | string | `""` | get database credentials from an existing Kubernetes Secret |
