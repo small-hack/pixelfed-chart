@@ -190,11 +190,15 @@ spec:
               value: {{ printf "%s-primary" (.Values.valkey.fullnameOverride) }}
               {{- end }}
             - name: REDIS_PORT
+              {{- if .Values.externalValkey }}
               {{- if .Values.externalValkey.existingSecret }}
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.externalValkey.existingSecret }}
                   key: {{ .Values.externalValkey.existingSecretKeys.port }}
+              {{- else }}
+              value: {{ .Values.externalValkey.port }}
+              {{- end }}
               {{- else }}
               value: {{ .Values.valkey.primary.service.ports.valkey | quote }}
               {{- end }}
