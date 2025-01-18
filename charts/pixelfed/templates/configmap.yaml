@@ -8,6 +8,7 @@ data:
     # app config vars
     APP_NAME={{ .Values.pixelfed.app.name }}
     APP_ENV={{ .Values.pixelfed.app.env }}
+    APP_PORT={{ .Values.service.targetPort }}
     APP_URL={{ .Values.pixelfed.app.url }}
     APP_LOCALE={{ .Values.pixelfed.app.locale }}
     {{- with .Values.pixelfed.app.domain }}
