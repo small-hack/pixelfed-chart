@@ -175,7 +175,7 @@ externalValkey:
 
 # valkey is a fork of redis with a better license
 valkey:
-  # -- enable the bundled valkey sub chart from Bitnami.
+  # -- enable the bundled [valkey sub chart from Bitnami](https://github.com/bitnami/charts/blob/main/bitnami/valkey/README.md#parameters).
   # Must set to true if externalValkey.enabled=false
   enabled: true
   fullnameOverride: "valkey"
@@ -200,13 +200,15 @@ valkey:
     disableCommands:
       - FLUSHALL
     persistence:
-      enabled: true
+      # -- enable to persistent primary data accross restarts
+      enabled: false
       existingClaim: ""
 
   # valkey replica configuration
   replica:
     persistence:
-      enabled: true
+      # -- enable to persistent replica data accross restarts
+      enabled: false
       existingClaim: ""
 
   # persistnent volume retention policy for the StatefulSet
@@ -226,10 +228,12 @@ valkey:
 
 
 postgresql:
-  # -- enable the bundled postgresql sub chart from Bitnami.
+  # -- enable the bundled [postgresql sub chart from Bitnami](https://github.com/bitnami/charts/blob/main/bitnami/postgresql/README.md#parameters).
   # Must set to true if externalDatabase.enabled=false
   enabled: true
   fullnameOverride: "postgresql"
+  global:
+    storageClass: ""
 
 pixelfed:
   # -- Automatically run [artisan migrate --force] if new migrations are detected.

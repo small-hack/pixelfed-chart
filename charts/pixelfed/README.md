@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.3-nginx](https://img.shields.io/badge/AppVersion-v0.12.3--nginx-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.3-nginx](https://img.shields.io/badge/AppVersion-v0.12.3--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -154,8 +154,9 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | podAnnotations | object | `{}` | This is for setting Kubernetes Annotations to a Pod. For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ |
 | podLabels | object | `{}` | This is for setting Kubernetes Labels to a Pod. For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ |
 | podSecurityContext | object | `{}` |  |
-| postgresql.enabled | bool | `true` | enable the bundled postgresql sub chart from Bitnami. Must set to true if externalDatabase.enabled=false |
+| postgresql.enabled | bool | `true` | enable the bundled [postgresql sub chart from Bitnami](https://github.com/bitnami/charts/blob/main/bitnami/postgresql/README.md#parameters). Must set to true if externalDatabase.enabled=false |
 | postgresql.fullnameOverride | string | `"postgresql"` |  |
+| postgresql.global.storageClass | string | `""` |  |
 | readinessProbe.httpGet.path | string | `"/api/service/health-check"` |  |
 | readinessProbe.httpGet.port | string | `"http"` |  |
 | replicaCount | int | `1` | This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/ |
@@ -172,7 +173,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | valkey.auth.enabled | bool | `true` |  |
 | valkey.auth.existingSecret | string | `""` |  |
 | valkey.auth.existingSecretPasswordKey | string | `"password"` |  |
-| valkey.enabled | bool | `true` | enable the bundled valkey sub chart from Bitnami. Must set to true if externalValkey.enabled=false |
+| valkey.enabled | bool | `true` | enable the bundled [valkey sub chart from Bitnami](https://github.com/bitnami/charts/blob/main/bitnami/valkey/README.md#parameters). Must set to true if externalValkey.enabled=false |
 | valkey.fullnameOverride | string | `"valkey"` |  |
 | valkey.global.storageClass | string | `""` |  |
 | valkey.metrics.enabled | bool | `false` | we use a grafana exporter that logs into valkey directly, but you can enable this if you don't use that |
@@ -180,9 +181,9 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | valkey.persistentVolumeClaimRetentionPolicy.whenDeleted | string | `"Retain"` |  |
 | valkey.persistentVolumeClaimRetentionPolicy.whenScaled | string | `"Retain"` |  |
 | valkey.primary.disableCommands | list | `["FLUSHALL"]` | Laravel requires the ability to call FLUSHDB, which is disabled by default |
-| valkey.primary.persistence.enabled | bool | `true` |  |
+| valkey.primary.persistence.enabled | bool | `false` | enable to persistent primary data accross restarts |
 | valkey.primary.persistence.existingClaim | string | `""` |  |
-| valkey.replica.persistence.enabled | bool | `true` |  |
+| valkey.replica.persistence.enabled | bool | `false` | enable to persistent replica data accross restarts |
 | valkey.replica.persistence.existingClaim | string | `""` |  |
 | valkey.resourcesPreset | string | `"small"` | definitions: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15 Options: nano, micro, small, medium, large, xlarge, 2xlarge default: nano |
 | valkey.tls.authClients | bool | `true` |  |
