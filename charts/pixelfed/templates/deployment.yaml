@@ -270,15 +270,14 @@ spec:
             - name: DB_CONNECTION
               value: {{ .Values.externalDatabase.connection }}
             - name: DB_HOST
-              {{- if .Values.externalDatabase.enabled }}
-              {{- if .Values.externalDatabase.existingSecret }}
+              {{- if and .Values.externalDatabase.enabled .Values.externalDatabase.existingSecret }}
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.externalDatabase.existingSecret }}
                   key: {{ .Values.externalDatabase.existingSecretKeys.host }}
-              {{- else }}
+              {{- else if and .Values.externalDatabase.enabled (not .Values.externalDatabase.existingSecret) }}
               value: {{ .Values.externalDatabase.host }}
-              {{- end }}
+              {{- else }}
               value: {{  .Values.postgresql.fullnameOverride  }}
               {{- end }}
             - name: DB_USERNAME
