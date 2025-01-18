@@ -95,7 +95,7 @@ spec:
 
             # instance config
             - name: INSTANCE_DESCRIPTION
-              value: {{ .Values.pixelfed.instance.description }}
+              value: {{ .Values.pixelfed.instance.description | quote }}
             - name: INSTANCE_CONTACT_FORM
               value: {{ .Values.pixelfed.instance.contact_form | quote }}
             - name: INSTANCE_DISCOVER_PUBLIC
@@ -197,7 +197,7 @@ spec:
                   name: {{ .Values.externalValkey.existingSecret }}
                   key: {{ .Values.externalValkey.existingSecretKeys.port }}
               {{- else }}
-              value: {{ .Values.externalValkey.port }}
+              value: {{ .Values.externalValkey.port | quote }}
               {{- end }}
               {{- else }}
               value: {{ .Values.valkey.primary.service.ports.valkey | quote }}
@@ -270,27 +270,37 @@ spec:
             - name: DB_CONNECTION
               value: {{ .Values.externalDatabase.connection }}
             - name: DB_HOST
+              {{- if .Values.externalDatabase.enabled }}
               {{- if .Values.externalDatabase.existingSecret }}
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.externalDatabase.existingSecret }}
                   key: {{ .Values.externalDatabase.existingSecretKeys.host }}
               {{- else }}
+              value: {{ .Values.externalDatabase.host }}
+              {{- end }}
               value: {{  .Values.postgresql.fullnameOverride  }}
               {{- end }}
             - name: DB_USERNAME
+              {{- if .Values.externalDatabase.enabled }}
               {{- if .Values.externalDatabase.existingSecret }}
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.externalDatabase.existingSecret }}
                   key: {{ .Values.externalDatabase.existingSecretKeys.username }}
               {{- else }}
+              value: {{ .Values.externalDatabase.username }}
+              {{- end }}
+              {{- else }}
               value: postgres
               {{- end }}
             - name: DB_PASSWORD
+              {{- if and .Values.externalDatabase.enabled (not .Values.externalDatabase.existingSecret) }}
+              value: {{ .Values.externalDatabase.password }}
+              {{- else }}
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.externalDatabase.existingSecret }}
+                  {{- if and .Values.externalDatabase.enabled .Values.externalDatabase.existingSecret }}
                   name: {{ .Values.externalDatabase.existingSecret }}
                   key: {{ .Values.externalDatabase.existingSecretKeys.password }}
                   {{- else if .Values.postgresql.auth.existingSecret }}
@@ -300,17 +310,22 @@ spec:
                   name: {{ .Values.postgresql.fullnameOverride }}
                   key: postgres-password
                   {{- end }}
+              {{- end }}
             - name: DB_DATABASE
-              {{- if .Values.externalDatabase.existingSecret }}
+              {{- if and .Values.externalDatabase.enabled .Values.externalDatabase.existingSecret }}
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.externalDatabase.existingSecret }}
                   key: {{ .Values.externalDatabase.existingSecretKeys.database }}
+              {{- else if and .Values.externalDatabase.enabled (not .Values.externalDatabase.existingSecret) }}
+              value: {{ .Values.externalDatabase.database }}
               {{- else }}
               value: postgres
               {{- end }}
             - name: DB_PORT
-              {{- if .Values.externalDatabase.existingSecret }}
+              {{- if and .Values.externalDatabase.enabled (not .Values.externalDatabase.existingSecret) }}
+              value: {{ .Values.externalDatabase.port }}
+              {{- else if and .Values.externalDatabase.enabled .Values.externalDatabase.existingSecret }}
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.externalDatabase.existingSecret }}
