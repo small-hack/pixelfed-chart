@@ -187,7 +187,7 @@ valkey:
     enabled: true
     existingSecret: ""
     existingSecretPasswordKey: "password"
-    
+
   # TLS settings
   tls:
     enabled: false
@@ -375,6 +375,7 @@ pixelfed:
 
   # ActivityPub Configuration
   activity_pub:
+    # -- enable ActivityPub
     enabled: false
     remote_follow: false
     inbox: false
@@ -399,11 +400,17 @@ pixelfed:
     # "sparkpost", "log", "array"
     driver: smtp
     host: smtp.mailtrap.io
+    # -- mail server port
     port: 2525
+    # -- mail server username
     username: ""
+    # -- mail server password
     password: ""
+    # -- mail server encryption type
     encryption: "tls"
+    # -- address to use for sending emails
     from_address: "pixelfed@example.com"
+    # -- name to use for sending emails
     from_name: "Pixelfed"
     # -- name of an existing Kubernetes Secret for mail credentials
     existingSecret: ""
