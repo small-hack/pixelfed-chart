@@ -59,10 +59,14 @@ service:
   # -- Port to attach to on the pods. Also sets what port nginx listens on inside the container.
   targetPort: 80
 
-# This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
+# This block is for setting up the ingress for more information can be found here:
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
+  # -- enable deploy an Ingress resource - network traffic from outside the cluster
   enabled: false
+  # -- ingress class name, e.g. nginx
   className: ""
+  # annotations to apply to the Ingress resource
   annotations: {}
   hosts:
     - host: chart-example.local
@@ -74,11 +78,8 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# -- set resource limits and requests for cpu, memory, and ephemeral storage
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -86,18 +87,22 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-# This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-livenessProbe:
-  httpGet:
-    path: /api/service/health-check
-    port: http
+# -- This is to setup the liveness probe
+# more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+livenessProbe: {}
+  #  httpGet:
+  #    path: /api/service/health-check
+  #    port: http
 
-readinessProbe:
-  httpGet:
-    path: /api/service/health-check
-    port: http
+# -- This is to setup the readiness probe
+# more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+readinessProbe: {}
+  #  httpGet:
+  #    path: /api/service/health-check
+  #    port: http
 
-# This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
+# This section is for setting up autoscaling
+# more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
   enabled: false
   minReplicas: 1
