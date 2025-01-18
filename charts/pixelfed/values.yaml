@@ -194,7 +194,8 @@ valkey:
 
   # primary (control plane) configuration
   primary:
-    disableCommands: # Laravel requires the ability to call FLUSHDB, which is disabled by default
+    # -- Laravel requires the ability to call FLUSHDB, which is disabled by default
+    disableCommands:
       - FLUSHALL
     persistence:
       enabled: true
@@ -213,10 +214,10 @@ valkey:
     whenDeleted: Retain
 
   metrics:
-    # we use a grafana exporter that logs into valkey directly
+    # -- we use a grafana exporter that logs into valkey directly, but you can enable this if you don't use that
     enabled: false
 
-  # definitions: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15
+  # -- definitions: https://github.com/bitnami/charts/blob/main/bitnami/common/templates/_resources.tpl#L15
   # Options: nano, micro, small, medium, large, xlarge, 2xlarge
   # default: nano
   resourcesPreset: "small"
