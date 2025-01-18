@@ -26,4 +26,5 @@ helm install --namespace pixelfed --create-namespace pixelfed/pixelfed --values 
 ## Notes
 
 You can find the general Pixelfed configuration docs here:
+
 https://docs.pixelfed.org/running-pixelfed/installation.html
