@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.3-nginx](https://img.shields.io/badge/AppVersion-v0.12.3--nginx-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.3-nginx](https://img.shields.io/badge/AppVersion-v0.12.3--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -162,6 +162,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | resources | object | `{}` |  |
 | securityContext | object | `{}` |  |
 | service.port | int | `80` | This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports |
+| service.targetPort | int | `80` | Port to attach to on the pods. Also sets what port nginx listens on inside the container. |
 | service.type | string | `"ClusterIP"` | This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
