@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.3-nginx](https://img.shields.io/badge/AppVersion-v0.12.3--nginx-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.3-nginx](https://img.shields.io/badge/AppVersion-v0.12.3--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -61,7 +61,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
-| livenessProbe.httpGet.path | string | `"/"` |  |
+| livenessProbe.httpGet.path | string | `"/api/service/health-check"` |  |
 | livenessProbe.httpGet.port | string | `"http"` |  |
 | nameOverride | string | `""` | This is to override the chart name. |
 | nodeSelector | object | `{}` |  |
@@ -156,7 +156,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | podSecurityContext | object | `{}` |  |
 | postgresql.enabled | bool | `true` | enable the bundled postgresql sub chart from Bitnami. Must set to true if externalDatabase.enabled=false |
 | postgresql.fullnameOverride | string | `"postgresql"` |  |
-| readinessProbe.httpGet.path | string | `"/"` |  |
+| readinessProbe.httpGet.path | string | `"/api/service/health-check"` |  |
 | readinessProbe.httpGet.port | string | `"http"` |  |
 | replicaCount | int | `1` | This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/ |
 | resources | object | `{}` |  |
