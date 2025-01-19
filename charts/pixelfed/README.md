@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.12.0](https://img.shields.io/badge/Version-0.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.13.0](https://img.shields.io/badge/Version-0.13.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -57,8 +57,8 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | fullnameOverride | string | `""` | This is to override the chart name, but used in more places |
 | image.pullPolicy | string | `"IfNotPresent"` | This sets the pull policy for images. |
 | image.registry | string | `"ghcr.io"` |  |
-| image.repository | string | `"mattlqx/docker-pixelfed"` |  |
-| image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. |
+| image.repository | string | `"mattlqx/docker-pixelfed"` | you can see the source [ghcr.io/mattlqx/docker-pixelfed](https://ghcr.io/mattlqx/docker-pixelfed) |
+| image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. you may want to set this to dev-nginx if you experice issue with the default tag |
 | imagePullSecrets | list | `[]` | This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/ |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` | ingress class name, e.g. nginx |
@@ -87,6 +87,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.app.name | string | `"Pixelfed"` | The name of your server/instance |
 | pixelfed.app.url | string | `"https://localhost"` | change this to the domain of your pixelfed instance |
 | pixelfed.atom_feeds | string | `"true"` | https://docs.pixelfed.org/technical-documentation/config/#atom_feeds |
+| pixelfed.custom_emoji | bool | `false` | Enable custom emojis |
 | pixelfed.db.apply_new_migrations_automatically | bool | `false` |  |
 | pixelfed.db.connection | string | `"pgsql"` | options: sqlite mysql pgsql sqlsrv |
 | pixelfed.enable_config_cache | bool | `true` | Enable the config cache to allow you to manage settings via the admin dashboard |
