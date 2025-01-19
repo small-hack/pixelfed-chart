@@ -86,7 +86,9 @@ data:
 
   # horizon
   HORIZON_PREFIX: {{ .Values.pixelfed.horizon.prefix | quote }}
-  HORIZON_DARKMODE: {{ .Values.pixelfed.horizon.darkmode | quote }}
+  {{- with .Values.pixelfed.horizon.darkmode }}
+  HORIZON_DARKMODE: {{ . | quote }}
+  {{- end }}
 
   # filesystem
   FILESYSTEM_DRIVER: {{ .Values.pixelfed.filesystem.driver }}
