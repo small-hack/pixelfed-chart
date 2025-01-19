@@ -91,6 +91,13 @@ data:
   FILESYSTEM_CLOUD: {{ .Values.pixelfed.filesystem.cloud }}
   MEDIA_DELETE_LOCAL_AFTER_CLOUD: {{ .Values.pixelfed.media_delete_local_after_cloud }}
 
+  # covid
+  ENABLE_COVID_LABEL: {{ .Values.pixelfed.covid.enable_label }}
+  COVID_LABEL_URL: {{ .Values.pixelfed.covid.label_url }}
+  COVID_LABEL_ORG: {{ .Values.pixelfed.covid.label_org }}
+
+  BANNED_USERNAMES: {{ .Values.pixelfed.banned_usernames }}
+
   # activity pub
   ACTIVITY_PUB: {{ .Values.pixelfed.activity_pub.enabled | quote }}
   AP_REMOTE_FOLLOW: {{ .Values.pixelfed.activity_pub.remote_follow | quote }}

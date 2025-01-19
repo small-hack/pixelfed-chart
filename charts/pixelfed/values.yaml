@@ -299,6 +299,15 @@ pixelfed:
     cloud: "s3"
     driver: "local"
 
+  covid:
+    enable_label: true
+    label_url: "https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public"
+    label_org: "visit the WHO website"
+
+  # -- not entirely sure if this is a list of banned usernames or text to
+  # display instead of banned usernames
+  banned_usernames: ""
+
   # -- delete local files after saving to the cloud
   media_delete_local_after_cloud: true
 
