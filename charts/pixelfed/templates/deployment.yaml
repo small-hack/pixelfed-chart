@@ -163,7 +163,7 @@ spec:
             - name: BROADCAST_DRIVER
               value: "log"
             - name: LOG_CHANNEL
-              value: "stack"
+              value: {{ .Values.pixelfed.laravel.log_channel }}
             - name: HORIZON_PREFIX
               value: "horizon-"
 

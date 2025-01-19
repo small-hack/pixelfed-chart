@@ -272,6 +272,11 @@ pixelfed:
     # -- The domain of your server, without https://
     domain: ""
 
+  # Laravel log settings
+  laravel:
+    # -- Laravel log channel. Pixelfed's default, 'stack', sends logs to the default Laravel logfile. 'stderr' allows Kubernetes to capture these logs
+    log_channel: stack
+
   # -- Enable open registration for new accounts
   open_registration: true
 
