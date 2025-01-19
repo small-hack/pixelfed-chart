@@ -91,14 +91,16 @@ data:
   # filesystem
   FILESYSTEM_DRIVER: {{ .Values.pixelfed.filesystem.driver }}
   FILESYSTEM_CLOUD: {{ .Values.pixelfed.filesystem.cloud }}
-  MEDIA_DELETE_LOCAL_AFTER_CLOUD: {{ .Values.pixelfed.media_delete_local_after_cloud }}
+  MEDIA_DELETE_LOCAL_AFTER_CLOUD: {{ .Values.pixelfed.media_delete_local_after_cloud | quote }}
 
   # covid
   ENABLE_COVID_LABEL: {{ .Values.pixelfed.covid.enable_label }}
   COVID_LABEL_URL: {{ .Values.pixelfed.covid.label_url }}
   COVID_LABEL_ORG: {{ .Values.pixelfed.covid.label_org }}
 
-  BANNED_USERNAMES: {{ .Values.pixelfed.banned_usernames }}
+  {{- with .Values.pixelfed.banned_usernames }}
+  BANNED_USERNAMES: {{ . }}
+  {{- end }}
 
   # activity pub
   ACTIVITY_PUB: {{ .Values.pixelfed.activity_pub.enabled | quote }}
