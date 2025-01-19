@@ -14,10 +14,13 @@ spec:
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        # reload deployment if config files change
+        php-config-hash: {{ toJson .Values.phpConfigs | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap_env.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "pixelfed.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
@@ -228,19 +231,39 @@ spec:
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+
           {{- with .Values.readinessProbe }}
           readinessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+
+          {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
-          volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
+
+          {{- if or .Values.extraVolumeMounts .Values.phpConfigs }}
+          volumeMounts:
+            {{- with .Values.extraVolumeMounts }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- range $key, $value := .Values.phpConfigs }}
+            - name: phpconfig
+              mountPath: {{ "/usr/local/etc/php-fpm.d/%s" $key | quote }}
+              subPath: {{ $key }}
+            {{- end }}
+          {{- end }}{{/* end volumeMounts */}}
+
+      {{- if or .Values.phpConfigs .Values.extraVolumes }}
       volumes:
-        {{- toYaml . | nindent 8 }}
+        {{- with .Values.extraVolumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- if .Values.phpConfigs }}
+        - name: phpconfig
+          configMap:
+            name: {{ template "pixelfed.fullname" . }}-phpconfig
+        {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
