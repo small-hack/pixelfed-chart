@@ -22,10 +22,10 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | set affinity to specific nodes or nodegroups |
-| autoscaling.enabled | bool | `false` |  |
-| autoscaling.maxReplicas | int | `100` |  |
-| autoscaling.minReplicas | int | `1` |  |
-| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| autoscaling.enabled | bool | `false` | enable autoscaling. more information can be found [here](https://kubernetes.io/docs/concepts/workloads/autoscaling/) |
+| autoscaling.maxReplicas | int | `100` | max replicas to scale up to |
+| autoscaling.minReplicas | int | `1` | minimum replicas to always keep up |
+| autoscaling.targetCPUUtilizationPercentage | int | `80` | CPU limit a pod needs to hit to start autoscaling new pods |
 | externalDatabase.database | string | `"pixelfed"` |  |
 | externalDatabase.enabled | bool | `false` | enable using an external mysql or postgresql cluster |
 | externalDatabase.existingSecret | string | `""` | get database credentials from an existing Kubernetes Secret |
