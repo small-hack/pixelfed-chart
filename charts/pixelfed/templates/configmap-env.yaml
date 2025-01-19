@@ -99,7 +99,7 @@ data:
   DB_DATABASE: postgres
   {{- end }}
 
-  # redis
+  # valkey (redis)
   {{- if .Values.valkey.enabled }}
   REDIS_HOST: {{ printf "%s-primary" (.Values.valkey.fullnameOverride) }}
   {{- else if and .Values.externalValkey.enabled (not .Values.externalValkey.existingSecret) (not .Values.externalValkey.existingSecretKeys.host) }}
@@ -108,6 +108,6 @@ data:
 
   {{- if .Values.valkey.enabled }}
   REDIS_PORT: {{ .Values.valkey.primary.service.ports.valkey | quote }}
-  {{- else if .Values.externalValkey.enabled (not .Values.externalValkey.existingSecret) (not .Values.externalValkey.existingSecretKeys.port) }}
+  {{- else if and .Values.externalValkey.enabled (not .Values.externalValkey.existingSecret) (not .Values.externalValkey.existingSecretKeys.port) }}
   REDIS_PORT: {{ .Values.externalValkey.port | quote }}
   {{- end }}
