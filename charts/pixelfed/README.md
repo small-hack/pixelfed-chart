@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.14.2](https://img.shields.io/badge/Version-0.14.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.14.3](https://img.shields.io/badge/Version-0.14.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -109,7 +109,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.image_quality | int | `80` | Set the image optimization quality, between 1-100. Lower uses less space, higher more quality |
 | pixelfed.instance.contact_email | string | `""` | The public contact email for your server |
 | pixelfed.instance.contact_form | bool | `false` | enable the instance contact form |
-| pixelfed.instance.contact_max_per_day | string | `""` | instance contact max per day |
+| pixelfed.instance.contact_max_per_day | int | `1` | instance contact max per day |
 | pixelfed.instance.cur_reg | bool | `false` | Enable Curated Registration |
 | pixelfed.instance.description | string | `"Pixelfed - Photo sharing for everyone"` | your server description |
 | pixelfed.instance.discover_public | bool | `false` | Enable public access to the Discover feature |

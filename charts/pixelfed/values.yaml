@@ -440,7 +440,7 @@ pixelfed:
     # -- The public contact email for your server
     contact_email: ""
     # -- instance contact max per day
-    contact_max_per_day: ""
+    contact_max_per_day: 1
     # -- Enable the profile embed feature
     profile_embeds: true
     # -- Enable the post embed feature
