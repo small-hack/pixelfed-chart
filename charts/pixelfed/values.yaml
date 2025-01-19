@@ -173,6 +173,8 @@ externalValkey:
   existingSecretKeys:
     # --  key in existing Kubernetes Secret for host. If set, ignores externalValkey.host
     host: ""
+    # --  key in existing Kubernetes Secret for port. If set, ignores externalValkey.port
+    port: ""
     # --  key in existing Kubernetes Secret for password. If set, ignores externalValkey.password
     password: ""
 
