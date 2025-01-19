@@ -14,7 +14,9 @@ data:
   APP_DOMAIN: {{ . }}
   {{- end }}
 
-  EXP_LOOPS: {{ .Values.pixelfed.exp_loops }}
+  {{- with .Values.pixelfed.exp_loops }}
+  EXP_LOOPS: {{ . }}
+  {{- end }}
 
   # registration related
   OPEN_REGISTRATION: {{ .Values.pixelfed.open_registration | quote }}
@@ -26,7 +28,7 @@ data:
   # not sure where to put this
   CUSTOM_EMOJI: {{ .Values.pixelfed.custom_emoji | quote }}
   CUSTOM_EMOJI_MAX_SIZE: {{ .Values.pixelfed.custom_emoji | quote }}
-  MEDIA_TYPES: {{ .Values.pixelfed.media_types }}
+  MEDIA_TYPES: {{ .Values.pixelfed.media_types | quote }}
 
   # limits
   MIN_PASSWORD_LENGTH: {{ .Values.pixelfed.min_password_length | quote }}
@@ -96,9 +98,9 @@ data:
   MEDIA_DELETE_LOCAL_AFTER_CLOUD: {{ .Values.pixelfed.media_delete_local_after_cloud | quote }}
 
   # covid
-  ENABLE_COVID_LABEL: {{ .Values.pixelfed.covid.enable_label }}
-  COVID_LABEL_URL: {{ .Values.pixelfed.covid.label_url }}
-  COVID_LABEL_ORG: {{ .Values.pixelfed.covid.label_org }}
+  ENABLE_COVID_LABEL: {{ .Values.pixelfed.covid.enable_label | quote }}
+  COVID_LABEL_URL: {{ .Values.pixelfed.covid.label_url | quote }}
+  COVID_LABEL_ORG: {{ .Values.pixelfed.covid.label_org | quote }}
 
   {{- with .Values.pixelfed.banned_usernames }}
   BANNED_USERNAMES: {{ . }}
@@ -110,7 +112,9 @@ data:
   AP_SHAREDINBOX: {{ .Values.pixelfed.activity_pub.sharedinbox | quote }}
   AP_INBOX: {{ .Values.pixelfed.activity_pub.inbox | quote }}
   AP_OUTBOX: {{ .Values.pixelfed.activity_pub.outbox | quote }}
-  AP_LOGGER_ENABLED: {{ .Values.pixelfed.activity_pub.logger_enabled | quote }}
+  {{- with .Values.pixelfed.activity_pub.logger_enabled }}
+  AP_LOGGER_ENABLED: {{ . | quote }}
+  {{- end }}
 
   # mail
   MAIL_DRIVER: "{{ .Values.pixelfed.mail.driver }}"
