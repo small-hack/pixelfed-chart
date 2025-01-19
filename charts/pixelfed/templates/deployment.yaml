@@ -67,6 +67,18 @@ spec:
               {{- toYaml . | nindent 12 }}
             {{- end }}
 
+            # pixelfed app key
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  {{- if and .Values.pixelfed.app.existingSecret .Values.pixelfed.app.existingSecretKey }}
+                  name: {{ .Values.pixelfed.app.existingSecret }}
+                  key: {{ .Values.pixelfed.app.existingSecretKey }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-app-key
+                  key: key
+                  {{- end }}
+
             # valkey AKA redis
             {{- if and .Values.externalValkey.enabled .Values.externalValkey.existingSecretKeys.host }}
             - name: REDIS_HOST

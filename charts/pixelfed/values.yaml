@@ -54,16 +54,18 @@ podLabels: {}
 
 # -- securityContext for the whole pod
 podSecurityContext: {}
-  # fsGroup: 2000
+  # runAsUser: 33
+  # runAsGroup: 33
+  # fsGroup: 33
 
 # -- securityContext for the pixelfed container
 securityContext: {}
+  # runAsUser: 33
+  # runAsNonRoot: true
+  # readOnlyRootFilesystem: true
   # capabilities:
   #   drop:
   #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
@@ -305,6 +307,17 @@ pixelfed:
 
   # app specific settings
   app:
+    # -- This key is used by the Illuminate encrypter service and should
+    # be set to a random, 32 character string, otherwise these encrypted strings
+    # will not be safe. If you don't generate one, we'll generate one for you
+    # however it will change everytime you upgrade the helm chart, so it should
+    # only be used for testing. In production, please set this, or pixelfed.app.existingSecret
+    key: ""
+    # -- use an existing Kuberentes Secret to store the app key
+    # If set, ignores pixelfed.app.key
+    existingSecret: ""
+    # -- key in pixelfed.app.existingSecret to use for the app key
+    existingSecretKey: ""
     # -- The name of your server/instance
     name: "Pixelfed"
     # -- The app environment, keep it set to "production"
