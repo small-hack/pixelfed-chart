@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.11.1](https://img.shields.io/badge/Version-0.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.12.0](https://img.shields.io/badge/Version-0.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -80,6 +80,9 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.admin_domain | string | `""` | domain of admin interface |
 | pixelfed.app.domain | string | `""` | The domain of your server, without https:// |
 | pixelfed.app.env | string | `"production"` | The app environment, keep it set to "production" |
+| pixelfed.app.existingSecret | string | `""` | use an existing Kuberentes Secret to store the app key If set, ignores pixelfed.app.key |
+| pixelfed.app.existingSecretKey | string | `""` | key in pixelfed.app.existingSecret to use for the app key |
+| pixelfed.app.key | string | `""` | This key is used by the Illuminate encrypter service and should be set to a random, 32 character string, otherwise these encrypted strings will not be safe. If you don't generate one, we'll generate one for you however it will change everytime you upgrade the helm chart, so it should only be used for testing. In production, please set this, or pixelfed.app.existingSecret |
 | pixelfed.app.locale | string | `"en"` | change this to the language code of your pixelfed instance |
 | pixelfed.app.name | string | `"Pixelfed"` | The name of your server/instance |
 | pixelfed.app.url | string | `"https://localhost"` | change this to the domain of your pixelfed instance |
