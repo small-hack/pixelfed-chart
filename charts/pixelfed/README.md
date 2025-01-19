@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.8.2](https://img.shields.io/badge/Version-0.8.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.9.0](https://img.shields.io/badge/Version-0.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -48,7 +48,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | externalValkey.password | string | `"null"` |  |
 | externalValkey.port | string | `"6379"` |  |
 | externalValkey.scheme | string | `"tcp"` |  |
-| fullnameOverride | string | `""` |  |
+| fullnameOverride | string | `""` | This is to override the chart name, but used in more places |
 | image.pullPolicy | string | `"IfNotPresent"` | This sets the pull policy for images. |
 | image.registry | string | `"ghcr.io"` |  |
 | image.repository | string | `"mattlqx/docker-pixelfed"` |  |
@@ -161,6 +161,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | readinessProbe | object | `{}` | This is to setup the readiness probe more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ |
 | replicaCount | int | `1` | This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/ |
 | resources | object | `{}` | set resource limits and requests for cpu, memory, and ephemeral storage |
+| revisionHistoryLimit | int | `10` | how many revisions of the deployment to keep for rollbacks |
 | securityContext | object | `{}` |  |
 | service.port | int | `80` | This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports |
 | service.targetPort | int | `80` | Port to attach to on the pods. Also sets what port nginx listens on inside the container. |
