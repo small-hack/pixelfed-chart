@@ -116,12 +116,14 @@ readinessProbe: {}
   #    path: /api/service/health-check
   #    port: http
 
-# This section is for setting up autoscaling
-# more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
+  # -- enable autoscaling. more information can be found [here](https://kubernetes.io/docs/concepts/workloads/autoscaling/)
   enabled: false
+  # -- minimum replicas to always keep up
   minReplicas: 1
+  # -- max replicas to scale up to
   maxReplicas: 100
+  # -- CPU limit a pod needs to hit to start autoscaling new pods
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
