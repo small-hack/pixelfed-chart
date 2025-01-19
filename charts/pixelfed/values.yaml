@@ -26,6 +26,12 @@ fullnameOverride: ""
 # -- how many revisions of the deployment to keep for rollbacks
 revisionHistoryLimit: 10
 
+# -- template out extra environment variables from ConfigMaps or Secrets
+extraEnv: []
+
+# -- template out extra enviornment variables
+extraEnvFrom: []
+
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
   # -- Specifies whether a service account should be created
@@ -41,13 +47,16 @@ serviceAccount:
 # -- This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 podAnnotations: {}
+
 # -- This is for setting Kubernetes Labels to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
 
+# -- securityContext for the whole pod
 podSecurityContext: {}
   # fsGroup: 2000
 
+# -- securityContext for the pixelfed container
 securityContext: {}
   # capabilities:
   #   drop:
@@ -129,10 +138,19 @@ volumeMounts: []
 #   mountPath: "/etc/foo"
 #   readOnly: true
 
+# -- set extra init containers
+extraInitContainers: []
+
+# -- set sidecar containers to run along side the pixelfed container
+extraContainers: []
+
+# -- put the pixelfed pod on a specific node/nodegroup
 nodeSelector: {}
 
+# -- set tolerations of node taints
 tolerations: []
 
+# -- set affinity to specific nodes or nodegroups
 affinity: {}
 
 externalDatabase:
