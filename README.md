@@ -33,9 +33,13 @@ helm install --namespace pixelfed --create-namespace pixelfed/pixelfed --values 
 
 ## Notes
 
-You can find the general Pixelfed configuration docs here:
+You can find some of the general Pixelfed configuration docs here:
 
 https://docs.pixelfed.org/running-pixelfed/installation.html
+
+But you'll find additional configuration here:
+
+https://github.com/pixelfed/pixelfed/blob/dev/.env.docker
 
 ### Creating your first user
 
