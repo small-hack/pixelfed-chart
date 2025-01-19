@@ -132,8 +132,6 @@ affinity: {}
 externalDatabase:
   # -- enable using an external mysql or postgresql cluster
   enabled: false
-  # -- options: sqlite mysql pgsql sqlsrv
-  connection: pgsql
   host: ""
   port: 3306
   database: pixelfed
@@ -241,8 +239,11 @@ postgresql:
     storageClass: ""
 
 pixelfed:
-  # -- Automatically run [artisan migrate --force] if new migrations are detected.
-  db_apply_new_migrations_automatically: false
+  db:
+    # -- options: sqlite mysql pgsql sqlsrv
+    connection: pgsql
+    # -- Automatically run [artisan migrate --force] if new migrations are detected.
+    apply_new_migrations_automatically: false
 
   # -- timezone for docker container
   timezone: "europe/amsterdam"

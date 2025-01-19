@@ -40,145 +40,10 @@ spec:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ include "pixelfed.fullname" . }}-env
           env:
-            # app data
-            - name: APP_NAME
-              value: {{ .Values.pixelfed.app.name }}
-            - name: APP_ENV
-              value: {{ .Values.pixelfed.app.env }}
-            - name: APP_PORT
-              value: {{ .Values.service.targetPort | quote}}
-            - name: APP_URL
-              value: {{ .Values.pixelfed.app.url }}
-            - name: APP_LOCALE
-              value: {{ .Values.pixelfed.app.locale }}
-            {{- with .Values.pixelfed.app.domain }}
-            - name: APP_DOMAIN
-              value: {{ . }}
-            {{- end }}
-
-            # registration related
-            - name: OPEN_REGISTRATION
-              value: {{ .Values.pixelfed.open_registration | quote }}
-            - name: ENFORCE_EMAIL_VERIFICATION
-              value: {{ .Values.pixelfed.enforce_email_verification | quote }}
-            - name: IMAGE_QUALITY
-              value: {{ .Values.pixelfed.image_quality | quote }}
-            - name: ACCOUNT_DELETION
-              value: {{ .Values.pixelfed.account_deletion | quote }}
-            - name: OAUTH_ENABLED
-              value: {{ .Values.pixelfed.oauth_enabled | quote }}
-
-            # limits
-            - name: MIN_PASSWORD_LENGTH
-              value: {{ .Values.pixelfed.min_password_length | quote }}
-            - name: MAX_ACCOUNT_SIZE
-              value: {{ .Values.pixelfed.max_account_size | quote }}
-            - name: MAX_PHOTO_SIZE
-              value: {{ .Values.pixelfed.max_photo_size | quote }}
-            - name: MAX_AVATAR_SIZE
-              value: {{ .Values.pixelfed.max_avatar_size | quote }}
-            - name: MAX_CAPTION_LENGTH
-              value: {{ .Values.pixelfed.max_caption_length | quote }}
-            - name: MAX_BIO_LENGTH
-              value: {{ .Values.pixelfed.max_bio_length | quote }}
-            - name: MAX_NAME_LENGTH
-              value: {{ .Values.pixelfed.max_name_length | quote }}
-            - name: MAX_ALBUM_LENGTH
-              value: {{ .Values.pixelfed.max_album_length | quote }}
-            - name: FORCE_HTTPS_URLS
-              value: {{ .Values.pixelfed.force_https_urls | quote }}
-            - name: STORIES_ENABLED
-              value: {{ .Values.pixelfed.stories_enabled | quote }}
-            - name: ENABLE_CONFIG_CACHE
-              value: {{ .Values.pixelfed.enable_config_cache | quote }}
-
-            # instance config
-            - name: INSTANCE_DESCRIPTION
-              value: {{ .Values.pixelfed.instance.description | quote }}
-            - name: INSTANCE_CONTACT_FORM
-              value: {{ .Values.pixelfed.instance.contact_form | quote }}
-            - name: INSTANCE_DISCOVER_PUBLIC
-              value: {{ .Values.pixelfed.instance.discover_public | quote }}
-            - name: INSTANCE_PUBLIC_HASHTAGS
-              value: {{ .Values.pixelfed.instance.public_hashtags | quote }}
-            {{- with .Values.pixelfed.instance.contact_email }}
-            - name: INSTANCE_CONTACT_EMAIL
-              value: {{ .Values.pixelfed.instance.contact_email }}
-            {{- end }}
-            - name: INSTANCE_PROFILE_EMBEDS
-              value: {{ .Values.pixelfed.instance.profile_embeds | quote }}
-            - name: INSTANCE_POST_EMBEDS
-              value: {{ .Values.pixelfed.instance.post_embeds | quote }}
-            - name: INSTANCE_REPORTS_EMAIL_ENABLED
-              value: {{ .Values.pixelfed.instance.reports.email_enabled | quote }}
-            {{- with .Values.pixelfed.instance.reports.email_addresses }}
-            - name: INSTANCE_REPORTS_EMAIL_ADDRESSES
-              value: {{ join "," . }}
-            {{- end }}
-            - name: INSTANCE_REPORTS_EMAIL_AUTOSPAM
-              value: {{ .Values.pixelfed.instance.reports.email_autospam | quote }}
-            - name: INSTANCE_LANDING_SHOW_DIRECTORY
-              value: {{ .Values.pixelfed.instance.landing.show_directory | quote }}
-            - name: INSTANCE_LANDING_SHOW_EXPLORE
-              value: {{ .Values.pixelfed.instance.landing.show_explore | quote }}
-            - name: INSTANCE_CUR_REG
-              value: {{ .Values.pixelfed.instance.cur_reg | quote }}
-            - name: INSTANCE_SHOW_PEERS
-              value: {{ .Values.pixelfed.instance.show_peers | quote }}
-
-            # public feed
-            - name: PF_HIDE_NSFW_ON_PUBLIC_FEEDS
-              value: {{ .Values.pixelfed.pf.hide_nsfw_on_public_feeds | quote }}
-            - name: PF_LOCAL_AVATAR_TO_CLOUD
-              value: {{ .Values.pixelfed.pf.local_avatar_to_cloud | quote }}
-            - name: PF_ADMIN_INVITES_ENABLED
-              value: {{ .Values.pixelfed.pf.admin_invites_enabled | quote }}
-            - name: PF_MAX_USER_BLOCKS
-              value: {{ .Values.pixelfed.pf.max_user_blocks | quote }}
-            - name: PF_MAX_USER_MUTES
-              value: {{ .Values.pixelfed.pf.max_user_mutes | quote }}
-            - name: PF_MAX_DOMAIN_BLOCKS
-              value: {{ .Values.pixelfed.pf.max_domain_blocks | quote }}
-            - name: PF_ENABLE_CLOUD
-              value: {{ .Values.pixelfed.pf.enable_cloud | quote }}
-            - name: PF_MAX_USERS
-              value: {{ .Values.pixelfed.pf.max_users | quote }}
-            - name: PF_ENFORCE_MAX_USERS
-              value: {{ .Values.pixelfed.pf.enforce_max_users | quote }}
-            - name: PF_OPTIMIZE_IMAGES
-              value: {{ .Values.pixelfed.pf.optimize_images | quote }}
-            - name: PF_OPTIMIZE_VIDEOS
-              value: {{ .Values.pixelfed.pf.optimize_videos | quote }}
-            - name: PF_MAX_COLLECTION_LENGTH
-              value: {{ .Values.pixelfed.pf.max_collection_length | quote }}
-
-            # Laravel Configuration
-            - name: SESSION_DRIVER
-              value: "database"
-            - name: CACHE_DRIVER
-              value: "redis"
-            - name: QUEUE_DRIVER
-              value: "redis"
-            - name: BROADCAST_DRIVER
-              value: "log"
-            - name: LOG_CHANNEL
-              value: {{ .Values.pixelfed.laravel.log_channel }}
-            - name: HORIZON_PREFIX
-              value: "horizon-"
-
-            # activity pub
-            - name: ACTIVITY_PUB
-              value: {{ .Values.pixelfed.activity_pub.enabled | quote }}
-            - name: AP_REMOTE_FOLLOW
-              value: {{ .Values.pixelfed.activity_pub.remote_follow | quote }}
-            - name: AP_SHAREDINBOX
-              value: {{ .Values.pixelfed.activity_pub.sharedinbox | quote }}
-            - name: AP_INBOX
-              value: {{ .Values.pixelfed.activity_pub.inbox | quote }}
-            - name: AP_OUTBOX
-              value: {{ .Values.pixelfed.activity_pub.outbox | quote }}
-
             # redis
             - name: REDIS_HOST
               {{- if .Values.externalValkey.existingSecret }}
@@ -217,8 +82,6 @@ spec:
                   {{- end }}
 
             # mail
-            - name: MAIL_DRIVER
-              value: "{{ .Values.pixelfed.mail.driver }}"
             - name: MAIL_HOST
               valueFrom:
                 secretKeyRef:
@@ -263,12 +126,8 @@ spec:
                   name: pixelfed-mail
                   key: password
                   {{- end }}
-            - name: MAIL_ENCRYPTION
-              value: "{{ .Values.pixelfed.mail.encryption }}"
 
             # database configuration
-            - name: DB_CONNECTION
-              value: {{ .Values.externalDatabase.connection }}
             - name: DB_HOST
               {{- if and .Values.externalDatabase.enabled .Values.externalDatabase.existingSecret }}
               valueFrom:
@@ -332,8 +191,6 @@ spec:
               {{- else }}
               value: {{ .Values.postgresql.primary.service.ports.postgresql | quote }}
               {{- end }}
-            - name: DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY
-              value: "{{ .Values.pixelfed.db_apply_new_migrations_automatically }}"
 
           {{- with .Values.livenessProbe }}
           livenessProbe:
