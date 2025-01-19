@@ -21,6 +21,9 @@ data:
   ACCOUNT_DELETION: {{ .Values.pixelfed.account_deletion | quote }}
   OAUTH_ENABLED: {{ .Values.pixelfed.oauth_enabled | quote }}
 
+  # not sure where to put this
+  CUSTOM_EMOJI: {{ .Values.pixelfed.custom_emoji | quote }}
+
   # limits
   MIN_PASSWORD_LENGTH: {{ .Values.pixelfed.min_password_length | quote }}
   MAX_ACCOUNT_SIZE: {{ .Values.pixelfed.max_account_size | quote }}

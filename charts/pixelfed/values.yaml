@@ -8,10 +8,12 @@ replicaCount: 1
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
   registry: ghcr.io
+  # -- you can see the source [ghcr.io/mattlqx/docker-pixelfed](https://ghcr.io/mattlqx/docker-pixelfed)
   repository: mattlqx/docker-pixelfed
   # -- This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # -- Overrides the image tag whose default is the chart appVersion.
+  # you may want to set this to dev-nginx if you experice issue with the default tag
   tag: ""
 
 # -- This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -352,6 +354,9 @@ pixelfed:
   # -- Enable the Stories feature
   stories_enabled: false
 
+  # -- Enable custom emojis
+  custom_emoji: false
+
   # -- Enable the config cache to allow you to manage settings via the admin dashboard
   enable_config_cache: true
 
@@ -483,6 +488,7 @@ pixelfed:
     from_address: "pixelfed@example.com"
     # -- name to use for sending emails
     from_name: "Pixelfed"
+
     # -- name of an existing Kubernetes Secret for mail credentials
     existingSecret: ""
     existingSecretKeys:
@@ -511,6 +517,7 @@ pixelfed:
     secret_access_key: ""
     # --  use S3 path type instead of using a DNS subdomain
     use_path_style_endpoint: false
+
     # -- name of an existing Kubernetes Secret for s3 credentials
     existingSecret: ""
     existingSecretKeys:
