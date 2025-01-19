@@ -1,0 +1,12 @@
+{{- if .Values.phpConfigs -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "pixelfed.fullname" . }}-phpconfig
+data:
+  {{- range $key, $value := .Values.phpConfigs }}
+  {{ $key }}: |-
+    {{- $value | nindent 4 }}
+  {{- end }}
+{{- end }}
