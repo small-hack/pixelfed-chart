@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.13.0](https://img.shields.io/badge/Version-0.13.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.14.0](https://img.shields.io/badge/Version-0.14.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -74,6 +74,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.account_deletion | bool | `true` | Enable account deletion (may be a requirement in some jurisdictions) |
 | pixelfed.activity_pub.enabled | bool | `false` | enable ActivityPub |
 | pixelfed.activity_pub.inbox | bool | `false` |  |
+| pixelfed.activity_pub.logger_enabled | bool | `false` |  |
 | pixelfed.activity_pub.outbox | bool | `false` |  |
 | pixelfed.activity_pub.remote_follow | bool | `false` |  |
 | pixelfed.activity_pub.sharedinbox | bool | `false` |  |
@@ -87,16 +88,28 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.app.name | string | `"Pixelfed"` | The name of your server/instance |
 | pixelfed.app.url | string | `"https://localhost"` | change this to the domain of your pixelfed instance |
 | pixelfed.atom_feeds | string | `"true"` | https://docs.pixelfed.org/technical-documentation/config/#atom_feeds |
+| pixelfed.banned_usernames | string | `""` | not entirely sure if this is a list of banned usernames or text to display instead of banned usernames |
+| pixelfed.covid.enable_label | bool | `true` |  |
+| pixelfed.covid.label_org | string | `"visit the WHO website"` |  |
+| pixelfed.covid.label_url | string | `"https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public"` |  |
 | pixelfed.custom_emoji | bool | `false` | Enable custom emojis |
+| pixelfed.custom_emoji_max_size | int | `2000000` | max size for custom emojis, in... bytes? |
 | pixelfed.db.apply_new_migrations_automatically | bool | `false` |  |
 | pixelfed.db.connection | string | `"pgsql"` | options: sqlite mysql pgsql sqlsrv |
 | pixelfed.enable_config_cache | bool | `true` | Enable the config cache to allow you to manage settings via the admin dashboard |
 | pixelfed.enforce_email_verification | bool | `true` | Enforce email verification |
 | pixelfed.exp_emc | bool | `true` | Experimental Configuration |
+| pixelfed.exp_loops | bool | `false` | exp loops (as in loops video? 🤷 |
+| pixelfed.filesystem.cloud | string | `"s3"` | Many applications store files both locally and in the cloud. For this reason, you may specify a default “cloud” driver here. This driver will be bound as the Cloud disk implementation in the container. |
+| pixelfed.filesystem.driver | string | `"local"` |  |
 | pixelfed.force_https_urls | bool | `true` | Force https url generation |
+| pixelfed.horizon.dark_mode | bool | `false` | darkmode for the web interface in the admin panel |
+| pixelfed.horizon.prefix | string | `"horizon-"` | prefix will be used when storing all Horizon data in Redis |
+| pixelfed.image_driver | string | `"gd"` | library to process images. options: "gd" (default), "imagick" |
 | pixelfed.image_quality | int | `80` | Set the image optimization quality, between 1-100. Lower uses less space, higher more quality |
 | pixelfed.instance.contact_email | string | `""` | The public contact email for your server |
 | pixelfed.instance.contact_form | bool | `false` | enable the instance contact form |
+| pixelfed.instance.contact_max_per_day | string | `""` | instance contact max per day |
 | pixelfed.instance.cur_reg | bool | `false` | Enable Curated Registration |
 | pixelfed.instance.description | string | `"Pixelfed - Photo sharing for everyone"` | your server description |
 | pixelfed.instance.discover_public | bool | `false` | Enable public access to the Discover feature |
@@ -110,6 +123,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.instance.reports.email_enabled | bool | `false` | Send a report email to the admin account for new autospam/reports |
 | pixelfed.instance.show_peers | bool | `false` | Enable the api/v1/peers API endpoint |
 | pixelfed.laravel.log_channel | string | `"stack"` | Laravel log channel. Pixelfed's default, 'stack', sends logs to the default Laravel logfile. 'stderr' allows Kubernetes to capture these logs |
+| pixelfed.laravel.log_level | string | `"debug"` | logging level |
 | pixelfed.mail.driver | string | `"smtp"` | options: "smtp" (default), "sendmail", "mailgun", "mandrill", "ses" "sparkpost", "log", "array" |
 | pixelfed.mail.encryption | string | `"tls"` | mail server encryption type |
 | pixelfed.mail.existingSecret | string | `""` | name of an existing Kubernetes Secret for mail credentials |
@@ -119,7 +133,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.mail.existingSecretKeys.username | string | `""` | key in existing Kubernetes Secret for username. If set, ignores mail.username |
 | pixelfed.mail.from_address | string | `"pixelfed@example.com"` | address to use for sending emails |
 | pixelfed.mail.from_name | string | `"Pixelfed"` | name to use for sending emails |
-| pixelfed.mail.host | string | `"smtp.mailtrap.io"` |  |
+| pixelfed.mail.host | string | `"smtp.mailtrap.io"` | mail server hostname |
 | pixelfed.mail.password | string | `""` | mail server password |
 | pixelfed.mail.port | int | `2525` | mail server port |
 | pixelfed.mail.username | string | `""` | mail server username |
@@ -130,6 +144,8 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.max_caption_length | int | `1000` | The max post caption length |
 | pixelfed.max_name_length | int | `32` | The max user display name length |
 | pixelfed.max_photo_size | int | `15000` | The max photo/video size in KB |
+| pixelfed.media_delete_local_after_cloud | bool | `true` | delete local files after saving to the cloud |
+| pixelfed.media_types | string | `"image/jpeg,image/png,image/gif"` | types of media to allow |
 | pixelfed.min_password_length | int | `16` | The min password length |
 | pixelfed.nodeinfo | string | `"true"` | https://docs.pixelfed.org/technical-documentation/config/#nodeinfo |
 | pixelfed.oauth_enabled | bool | `true` | Enable oAuth support, required for mobile/3rd party apps |
