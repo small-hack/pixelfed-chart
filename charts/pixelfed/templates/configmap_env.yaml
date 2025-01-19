@@ -23,6 +23,8 @@ data:
 
   # not sure where to put this
   CUSTOM_EMOJI: {{ .Values.pixelfed.custom_emoji | quote }}
+  CUSTOM_EMOJI_MAX_SIZE: {{ .Values.pixelfed.custom_emoji | quote }}
+  MEDIA_TYPES: {{ .Values.pixelfed.media_types }}
 
   # limits
   MIN_PASSWORD_LENGTH: {{ .Values.pixelfed.min_password_length | quote }}
@@ -40,6 +42,7 @@ data:
   # instance config
   INSTANCE_DESCRIPTION: {{ .Values.pixelfed.instance.description | quote }}
   INSTANCE_CONTACT_FORM: {{ .Values.pixelfed.instance.contact_form | quote }}
+  INSTANCE_CONTACT_MAX_PER_DAY: {{ .Values.pixelfed.instance.contact_max_per_day | quote }}
   INSTANCE_DISCOVER_PUBLIC: {{ .Values.pixelfed.instance.discover_public | quote }}
   INSTANCE_PUBLIC_HASHTAGS: {{ .Values.pixelfed.instance.public_hashtags | quote }}
   {{- with .Values.pixelfed.instance.contact_email }}
@@ -77,7 +80,16 @@ data:
   QUEUE_DRIVER: "redis"
   BROADCAST_DRIVER: "log"
   LOG_CHANNEL: {{ .Values.pixelfed.laravel.log_channel }}
-  HORIZON_PREFIX: "horizon-"
+  LOG_LEVEL: {{ .Values.pixelfed.laravel.log_level }}
+
+  # horizon
+  HORIZON_PREFIX: {{ .Values.pixelfed.horizon.prefix | quote }}
+  HORIZON_DARKMODE: {{ .Values.pixelfed.horizon.darkmode | quote }}
+
+  # filesystem
+  FILESYSTEM_DRIVER: {{ .Values.pixelfed.filesystem.driver }}
+  FILESYSTEM_CLOUD: {{ .Values.pixelfed.filesystem.cloud }}
+  MEDIA_DELETE_LOCAL_AFTER_CLOUD: {{ .Values.pixelfed.media_delete_local_after_cloud }}
 
   # activity pub
   ACTIVITY_PUB: {{ .Values.pixelfed.activity_pub.enabled | quote }}
@@ -85,6 +97,7 @@ data:
   AP_SHAREDINBOX: {{ .Values.pixelfed.activity_pub.sharedinbox | quote }}
   AP_INBOX: {{ .Values.pixelfed.activity_pub.inbox | quote }}
   AP_OUTBOX: {{ .Values.pixelfed.activity_pub.outbox | quote }}
+  AP_LOGGER_ENABLED: {{ .Values.pixelfed.activity_pub.logger_enabled | quote }}
 
   # mail
   MAIL_DRIVER: "{{ .Values.pixelfed.mail.driver }}"

@@ -292,6 +292,16 @@ pixelfed:
     # -- Automatically run [artisan migrate --force] if new migrations are detected.
     apply_new_migrations_automatically: false
 
+  filesystem:
+    # -- Many applications store files both locally and in the cloud.
+    # For this reason, you may specify a default “cloud” driver here.
+    # This driver will be bound as the Cloud disk implementation in the container.
+    cloud: "s3"
+    driver: "local"
+
+  # -- delete local files after saving to the cloud
+  media_delete_local_after_cloud: true
+
   # -- timezone for docker container
   timezone: "europe/amsterdam"
 
@@ -306,6 +316,13 @@ pixelfed:
 
   # -- trusted proxies
   trusted_proxies: "*"
+
+  # horizon - for interfacing with redis
+  horizon:
+    # -- prefix will be used when storing all Horizon data in Redis
+    prefix: "horizon-"
+    # -- darkmode for the web interface in the admin panel
+    dark_mode: false
 
   # app specific settings
   app:
@@ -357,6 +374,12 @@ pixelfed:
   # -- Enable custom emojis
   custom_emoji: false
 
+  # -- max size for custom emojis, in... bytes?
+  custom_emoji_max_size: 2000000
+
+  # -- types of media to allow
+  media_types: "image/jpeg,image/png,image/gif"
+
   # -- Enable the config cache to allow you to manage settings via the admin dashboard
   enable_config_cache: true
 
@@ -387,18 +410,26 @@ pixelfed:
   # -- Force https url generation
   force_https_urls: true
 
+  # -- exp loops (as in loops video? 🤷
+  exp_loops: false
+
+  # -- library to process images. options: "gd" (default), "imagick"
+  image_driver: "gd"
+
   # your whole instance, or server, settings
   instance:
     # -- your server description
     description: "Pixelfed - Photo sharing for everyone"
-    # -- enable the instance contact form
-    contact_form: false
     # -- Enable public access to the Discover feature
     discover_public: false
     # -- Allow anonymous access to hashtag feeds
     public_hashtags: false
+    # -- enable the instance contact form
+    contact_form: false
     # -- The public contact email for your server
     contact_email: ""
+    # -- instance contact max per day
+    contact_max_per_day: ""
     # -- Enable the profile embed feature
     profile_embeds: true
     # -- Enable the post embed feature
@@ -457,6 +488,8 @@ pixelfed:
     inbox: false
     outbox: false
     sharedinbox: false
+    # activity pub logger?
+    logger_enabled: false
 
   ###########################################################
   # Federation
@@ -475,6 +508,7 @@ pixelfed:
     # -- options: "smtp" (default), "sendmail", "mailgun", "mandrill", "ses"
     # "sparkpost", "log", "array"
     driver: smtp
+    # -- mail server hostname
     host: smtp.mailtrap.io
     # -- mail server port
     port: 2525
@@ -491,6 +525,7 @@ pixelfed:
 
     # -- name of an existing Kubernetes Secret for mail credentials
     existingSecret: ""
+    # keys in existing secret
     existingSecretKeys:
       # --  key in existing Kubernetes Secret for host. If set, ignores mail.host
       host: ""
