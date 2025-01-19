@@ -37,6 +37,12 @@ You can find the general Pixelfed configuration docs here:
 
 https://docs.pixelfed.org/running-pixelfed/installation.html
 
+### Creating your first user
+
+```console
+$ kubectl exec -it YOUR_PIXELFED_POD -- /bin/bash -c "php artisan user:create --name=myname --username=myusername --email=myname@example.tld --password=password --is_admin=false --confirm_email=true"
+```
+
 ## Contibuting
 
 ### Bugs and other Issues
