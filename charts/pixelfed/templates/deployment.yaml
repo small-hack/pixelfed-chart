@@ -249,7 +249,7 @@ spec:
             {{- end }}
             {{- range $key, $value := .Values.phpConfigs }}
             - name: phpconfig
-              mountPath: {{ "/usr/local/etc/php-fpm.d/%s" $key | quote }}
+              mountPath: {{ print "/usr/local/etc/php-fpm.d/%s" $key | quote }}
               subPath: {{ $key }}
             {{- end }}
           {{- end }}{{/* end volumeMounts */}}
