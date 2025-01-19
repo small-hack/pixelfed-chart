@@ -54,16 +54,18 @@ podLabels: {}
 
 # -- securityContext for the whole pod
 podSecurityContext: {}
-  # fsGroup: 2000
+  # runAsUser: 33
+  # runAsGroup: 33
+  # fsGroup: 33
 
 # -- securityContext for the pixelfed container
 securityContext: {}
+  # runAsUser: 33
+  # runAsNonRoot: true
+  # readOnlyRootFilesystem: true
   # capabilities:
   #   drop:
   #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 # This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
 service:
