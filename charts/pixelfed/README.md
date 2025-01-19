@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.3-nginx](https://img.shields.io/badge/AppVersion-v0.12.3--nginx-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -43,6 +43,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | externalValkey.existingSecret | string | `""` | get valkey credentials from an existing Kubernetes Secret |
 | externalValkey.existingSecretKeys.host | string | `""` | key in existing Kubernetes Secret for host. If set, ignores externalValkey.host |
 | externalValkey.existingSecretKeys.password | string | `""` | key in existing Kubernetes Secret for password. If set, ignores externalValkey.password |
+| externalValkey.existingSecretKeys.port | string | `""` | key in existing Kubernetes Secret for port. If set, ignores externalValkey.port |
 | externalValkey.host | string | `"valkey"` |  |
 | externalValkey.password | string | `"null"` |  |
 | externalValkey.port | string | `"6379"` |  |
