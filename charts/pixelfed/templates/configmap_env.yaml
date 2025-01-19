@@ -14,6 +14,8 @@ data:
   APP_DOMAIN: {{ . }}
   {{- end }}
 
+  EXP_LOOPS: {{ .Values.pixelfed.exp_loops }}
+
   # registration related
   OPEN_REGISTRATION: {{ .Values.pixelfed.open_registration | quote }}
   ENFORCE_EMAIL_VERIFICATION: {{ .Values.pixelfed.enforce_email_verification | quote }}
