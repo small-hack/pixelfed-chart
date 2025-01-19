@@ -33,7 +33,14 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.extraInitContainers }}
+      initContainers:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
+        {{- with .Values.extraContainers }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
           securityContext:
@@ -45,10 +52,18 @@ spec:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
+
           envFrom:
+            {{- with .Values.extraEnvFrom }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
             - configMapRef:
                 name: {{ include "pixelfed.fullname" . }}-env
           env:
+            {{- with .Values.extraEnv }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+
             # valkey AKA redis
             {{- if and .Values.externalValkey.enabled .Values.externalValkey.existingSecretKeys.host }}
             - name: REDIS_HOST
@@ -104,6 +119,7 @@ spec:
                   name: {{ include "pixelfed.fullname" . }}-mail
                   key: host
                   {{- end }}
+
             - name: MAIL_PORT
               valueFrom:
                 secretKeyRef:
@@ -114,6 +130,7 @@ spec:
                   name: {{ include "pixelfed.fullname" . }}-mail
                   key: port
                   {{- end }}
+
             - name: MAIL_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -124,6 +141,7 @@ spec:
                   name: {{ include "pixelfed.fullname" . }}-mail
                   key: username
                   {{- end }}
+
             - name: MAIL_PASSWORD
               valueFrom:
                 secretKeyRef:

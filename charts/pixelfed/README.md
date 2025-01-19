@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.9.0](https://img.shields.io/badge/Version-0.9.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.10.0](https://img.shields.io/badge/Version-0.10.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -21,11 +21,11 @@ A Helm chart for deploying Pixelfed on Kubernetes
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` |  |
-| autoscaling.enabled | bool | `false` |  |
-| autoscaling.maxReplicas | int | `100` |  |
-| autoscaling.minReplicas | int | `1` |  |
-| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| affinity | object | `{}` | set affinity to specific nodes or nodegroups |
+| autoscaling.enabled | bool | `false` | enable autoscaling. more information can be found [here](https://kubernetes.io/docs/concepts/workloads/autoscaling/) |
+| autoscaling.maxReplicas | int | `100` | max replicas to scale up to |
+| autoscaling.minReplicas | int | `1` | minimum replicas to always keep up |
+| autoscaling.targetCPUUtilizationPercentage | int | `80` | CPU limit a pod needs to hit to start autoscaling new pods |
 | externalDatabase.database | string | `"pixelfed"` |  |
 | externalDatabase.enabled | bool | `false` | enable using an external mysql or postgresql cluster |
 | externalDatabase.existingSecret | string | `""` | get database credentials from an existing Kubernetes Secret |
@@ -48,6 +48,10 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | externalValkey.password | string | `"null"` |  |
 | externalValkey.port | string | `"6379"` |  |
 | externalValkey.scheme | string | `"tcp"` |  |
+| extraContainers | list | `[]` | set sidecar containers to run along side the pixelfed container |
+| extraEnv | list | `[]` | template out extra environment variables from ConfigMaps or Secrets |
+| extraEnvFrom | list | `[]` | template out extra enviornment variables |
+| extraInitContainers | list | `[]` | set extra init containers |
 | fullnameOverride | string | `""` | This is to override the chart name, but used in more places |
 | image.pullPolicy | string | `"IfNotPresent"` | This sets the pull policy for images. |
 | image.registry | string | `"ghcr.io"` |  |
@@ -63,7 +67,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | ingress.tls | list | `[]` |  |
 | livenessProbe | object | `{}` | This is to setup the liveness probe more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ |
 | nameOverride | string | `""` | This is to override the chart name. |
-| nodeSelector | object | `{}` |  |
+| nodeSelector | object | `{}` | put the pixelfed pod on a specific node/nodegroup |
 | pixelfed.account_deletion | bool | `true` | Enable account deletion (may be a requirement in some jurisdictions) |
 | pixelfed.activity_pub.enabled | bool | `false` | enable ActivityPub |
 | pixelfed.activity_pub.inbox | bool | `false` |  |
@@ -154,7 +158,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.webfinger | string | `"true"` | https://docs.pixelfed.org/technical-documentation/config/#webfinger |
 | podAnnotations | object | `{}` | This is for setting Kubernetes Annotations to a Pod. For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ |
 | podLabels | object | `{}` | This is for setting Kubernetes Labels to a Pod. For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ |
-| podSecurityContext | object | `{}` |  |
+| podSecurityContext | object | `{}` | securityContext for the whole pod |
 | postgresql.enabled | bool | `true` | enable the bundled [postgresql sub chart from Bitnami](https://github.com/bitnami/charts/blob/main/bitnami/postgresql/README.md#parameters). Must set to true if externalDatabase.enabled=false |
 | postgresql.fullnameOverride | string | `"postgresql"` |  |
 | postgresql.global.storageClass | string | `""` |  |
@@ -162,7 +166,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | replicaCount | int | `1` | This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/ |
 | resources | object | `{}` | set resource limits and requests for cpu, memory, and ephemeral storage |
 | revisionHistoryLimit | int | `10` | how many revisions of the deployment to keep for rollbacks |
-| securityContext | object | `{}` |  |
+| securityContext | object | `{}` | securityContext for the pixelfed container |
 | service.port | int | `80` | This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports |
 | service.targetPort | int | `80` | Port to attach to on the pods. Also sets what port nginx listens on inside the container. |
 | service.type | string | `"ClusterIP"` | This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types |
@@ -170,7 +174,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
-| tolerations | list | `[]` |  |
+| tolerations | list | `[]` | set tolerations of node taints |
 | valkey.auth.enabled | bool | `true` |  |
 | valkey.auth.existingSecret | string | `""` |  |
 | valkey.auth.existingSecretPasswordKey | string | `"password"` |  |
