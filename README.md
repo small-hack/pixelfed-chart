@@ -1,9 +1,11 @@
 # Pixelfed helm chart
 <a href="https://github.com/small-hack/pixelfed-chart/releases"><img src="https://img.shields.io/github/v/release/small-hack/pixelfed-chart?style=plastic&labelColor=blue&color=green&logo=GitHub&logoColor=white"></a><br />
 
-A helm chart to setup [Pixelfed](https://pixelfed.org/). Uses @mattlqx's [docker image](https://ghcr.io/mattlqx/docker-pixelfed) for now pinned to the latest released version. You may want to set `image.tag="dev-nginx"` (built from the top of the pixelfed repo's dev branch nightly, so it always has the latest version of pixelfed - but maybe buggy) as it may solve issues you are having that are already fixed such as this [bug that was already patched](https://github.com/pixelfed/pixelfed/issues/5220#issuecomment-2599854479).
+A helm chart to setup [Pixelfed](https://github.com/pixelfed/pixelfed), a federated social media app focused on photos.
 
 This chart is still in a testing phase and may not be fully stable yet.
+
+Uses @mattlqx's [docker image](https://ghcr.io/mattlqx/docker-pixelfed) which is for now pinned to the latest _released_ version of Pixelfed. You may want to set `image.tag="dev-nginx"` (built from the top of the pixelfed repo's dev branch nightly, so it always has the latest version of pixelfed - but maybe buggy) as it may solve issues you are having that are already fixed such as this [bug that was already patched](https://github.com/pixelfed/pixelfed/issues/5220#issuecomment-2599854479).
 
 ## Features
 
