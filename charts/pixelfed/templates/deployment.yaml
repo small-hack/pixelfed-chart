@@ -48,27 +48,42 @@ spec:
             - configMapRef:
                 name: {{ include "pixelfed.fullname" . }}-env
           env:
-            # redis
+            # valkey AKA redis
+            {{- if and .Values.externalValkey.enabled .Values.externalValkey.existingSecretKeys.host }}
             - name: REDIS_HOST
-              {{- if and .Values.externalValkey.existingSecret .Values.externalValkey.existingSecretKeys.host }}
               valueFrom:
                 secretKeyRef:
+                  {{- if and .Values.externalValkey.existingSecret .Values.externalValkey.existingSecretKeys.host }}
                   name: {{ .Values.externalValkey.existingSecret }}
                   key: {{ .Values.externalValkey.existingSecretKeys.host }}
-              {{- end }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-valkey
+                  key: host
+                  {{- end }}
+            {{- end }}
+
             {{- if and .Values.externalValkey.enabled .Values.externalValkey.existingSecret .Values.externalValkey.existingSecretKeys.port }}
             - name: REDIS_PORT
               valueFrom:
                 secretKeyRef:
+                  {{- if and .Values.externalValkey.existingSecret .Values.externalValkey.existingSecretKeys.port }}
                   name: {{ .Values.externalValkey.existingSecret }}
                   key: {{ .Values.externalValkey.existingSecretKeys.port }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-valkey
+                  key: port
+                  {{- end }}
             {{- end }}
+
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  {{- if .Values.externalValkey.existingSecret }}
+                  {{- if and .Values.externalValkey.enabled .Values.externalValkey.existingSecret }}
                   name: {{ .Values.externalValkey.existingSecret }}
                   key: {{ .Values.externalValkey.existingSecretKeys.password }}
+                  {{- else if and .Values.externalValkey.enabled (not .Values.externalValkey.existingSecret) }}
+                  name: {{ include "pixelfed.fullname" . }}-valkey
+                  key: password
                   {{- else if .Values.valkey.auth.existingSecret }}
                   name: {{ .Values.valkey.auth.existingSecret }}
                   key: password
@@ -85,7 +100,7 @@ spec:
                   name: {{ .Values.pixelfed.mail.existingSecret }}
                   key: {{ .Values.pixelfed.mail.existingSecretKeys.host }}
                   {{- else }}
-                  name: pixelfed-mail
+                  name: {{ include "pixelfed.fullname" . }}-mail
                   key: host
                   {{- end }}
             - name: MAIL_PORT
@@ -95,7 +110,7 @@ spec:
                   name: {{ .Values.pixelfed.mail.existingSecret }}
                   key: {{ .Values.pixelfed.mail.existingSecretKeys.port }}
                   {{- else }}
-                  name: pixelfed-mail
+                  name: {{ include "pixelfed.fullname" . }}-mail
                   key: port
                   {{- end }}
             - name: MAIL_USERNAME
@@ -105,7 +120,7 @@ spec:
                   name: {{ .Values.pixelfed.mail.existingSecret }}
                   key: {{ .Values.pixelfed.mail.existingSecretKeys.username }}
                   {{- else }}
-                  name: pixelfed-mail
+                  name: {{ include "pixelfed.fullname" . }}-mail
                   key: username
                   {{- end }}
             - name: MAIL_PASSWORD
@@ -115,7 +130,7 @@ spec:
                   name: {{ .Values.pixelfed.mail.existingSecret }}
                   key: {{ .Values.pixelfed.mail.existingSecretKeys.password }}
                   {{- else }}
-                  name: pixelfed-mail
+                  name: {{ include "pixelfed.fullname" . }}-mail
                   key: password
                   {{- end }}
 
