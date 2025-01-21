@@ -49,8 +49,8 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | externalValkey.port | string | `"6379"` |  |
 | externalValkey.scheme | string | `"tcp"` |  |
 | extraContainers | list | `[]` | set sidecar containers to run along side the pixelfed container |
-| extraEnv | list | `[]` | template out extra environment variables from ConfigMaps or Secrets |
-| extraEnvFrom | list | `[]` | template out extra enviornment variables |
+| extraEnv | list | `[]` | template out extra environment variables |
+| extraEnvFrom | list | `[]` | template out extra environment variables e.g. ConfigMaps or Secrets |
 | extraInitContainers | list | `[]` | set extra init containers |
 | extraVolumeMounts | list | `[]` | Additional volumeMounts on the output Deployment definition |
 | extraVolumes | list | `[]` | Additional volumes on the output Deployment definition |
