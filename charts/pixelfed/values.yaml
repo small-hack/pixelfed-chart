@@ -61,8 +61,7 @@ podSecurityContext: {}
   # fsGroup: 33
 
 # -- securityContext for the pixelfed container
-securityContext:
-  {}
+securityContext:  {}
   # runAsUser: 33
   # runAsNonRoot: true
   # readOnlyRootFilesystem: true
