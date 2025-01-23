@@ -3,6 +3,29 @@ entries:
   pixelfed:
   - apiVersion: v2
     appVersion: v0.12.4-nginx
+    created: "2025-01-23T07:45:39.463313755Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 16.3.4
+    - condition: valkey.enabled
+      name: valkey
+      repository: oci://registry-1.docker.io/bitnamicharts
+      version: 2.2.1
+    description: A Helm chart for deploying Pixelfed on Kubernetes
+    digest: 8e5963f9bc6b3fa9778251ac32c0c3ad1cd3da3c9a4a1deafe9411069c13ea01
+    maintainers:
+    - email: jessebot@linux.com
+      name: jessebot
+      url: https://github.com/jessebot
+    name: pixelfed
+    type: application
+    urls:
+    - https://github.com/small-hack/pixelfed-chart/releases/download/pixelfed-0.14.5/pixelfed-0.14.5.tgz
+    version: 0.14.5
+  - apiVersion: v2
+    appVersion: v0.12.4-nginx
     created: "2025-01-23T07:40:43.727167668Z"
     dependencies:
     - condition: postgresql.enabled
@@ -678,4 +701,4 @@ entries:
     urls:
     - https://github.com/jessebot/pixelfed-chart/releases/download/pixelfed-0.1.0/pixelfed-0.1.0.tgz
     version: 0.1.0
-generated: "2025-01-23T07:40:43.727361348Z"
+generated: "2025-01-23T07:45:39.463641875Z"
