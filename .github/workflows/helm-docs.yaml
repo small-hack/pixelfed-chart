@@ -25,5 +25,5 @@ jobs:
       - name: Render helm docs inside the README.md and push changes back to PR branch
         uses: jessebot/helm-docs-action@0.0.1
         with:
-          working-dir: charts/pixelfed
+          # working-dir: charts/pixelfed
           git-push: "true"
