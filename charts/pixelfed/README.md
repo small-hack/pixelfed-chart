@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.17.0](https://img.shields.io/badge/Version-0.17.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.17.1](https://img.shields.io/badge/Version-0.17.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -15,7 +15,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | Repository | Name | Version |
 |------------|------|---------|
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 16.4.5 |
-| oci://registry-1.docker.io/bitnamicharts | valkey | 2.2.1 |
+| oci://registry-1.docker.io/bitnamicharts | valkey | 2.2.3 |
 
 ## Values
 
