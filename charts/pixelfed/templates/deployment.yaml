@@ -259,7 +259,7 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
 
-          {{- if or .Values.extraVolumeMounts .Values.phpConfigs }}
+          {{- if or .Values.extraVolumeMounts .Values.phpConfigs .Values.persistence.enabled }}
           volumeMounts:
             {{- with .Values.extraVolumeMounts }}
               {{- toYaml . | nindent 12 }}
@@ -269,12 +269,21 @@ spec:
               mountPath: {{ print "/usr/local/etc/php-fpm.d/%s" $key | quote }}
               subPath: {{ $key }}
             {{- end }}
+            {{- if .Values.persistence.enabled }}
+            - name: storage
+              mountPath: /var/www/storage
+            {{- end }}
           {{- end }}{{/* end volumeMounts */}}
 
-      {{- if or .Values.phpConfigs .Values.extraVolumes }}
+      {{- if or .Values.phpConfigs .Values.extraVolumes .Values.persistence.enabled }}
       volumes:
         {{- with .Values.extraVolumes }}
           {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- if .Values.persistence.enabled }}
+        - name: storage
+          persistentVolumeclaim:
+            claimName: {{ .Values.persistence.existingClaim }}
         {{- end }}
         {{- if .Values.phpConfigs }}
         - name: phpconfig

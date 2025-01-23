@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.18.0](https://img.shields.io/badge/Version-0.18.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.19.0](https://img.shields.io/badge/Version-0.19.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -78,6 +78,9 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | mariadb.enabled | bool | `false` | enable mariadb subchart - currently experimental for this chart read more about the values: https://github.com/bitnami/charts/tree/main/bitnami/mariadb |
 | nameOverride | string | `""` | This is to override the chart name. |
 | nodeSelector | object | `{}` | put the pixelfed pod on a specific node/nodegroup |
+| persistence.enabled | bool | `false` | enable persistence for the pixelfed pod |
+| persistence.existingClaim | string | `""` | using an existing PVC instead of creating one with this chart |
+| persistence.storage | string | `"2Gi"` | size of the persistent volume claim to create. Tgnored if persistence.existingClaim is set |
 | phpConfigs | object | `{}` | PHP Configuration files Will be injected in /usr/local/etc/php-fpm.d |
 | pixelfed.account_deletion | bool | `true` | Enable account deletion (may be a requirement in some jurisdictions) |
 | pixelfed.activity_pub.enabled | bool | `false` | enable ActivityPub |

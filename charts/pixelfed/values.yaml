@@ -306,6 +306,14 @@ phpConfigs: {}
   #   pm.min_spare_servers = 100
   #   pm.max_spare_servers = 280
 
+persistence:
+  # -- enable persistence for the pixelfed pod
+  enabled: false
+  # -- size of the persistent volume claim to create. Tgnored if persistence.existingClaim is set
+  storage: 2Gi
+  # -- using an existing PVC instead of creating one with this chart
+  existingClaim: ""
+
 pixelfed:
   db:
     # -- options: sqlite mysql pgsql sqlsrv
