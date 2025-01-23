@@ -98,8 +98,7 @@ ingress:
   #      - chart-example.local
 
 # -- set resource limits and requests for cpu, memory, and ephemeral storage
-resources:
-  {}
+resources:  {}
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
