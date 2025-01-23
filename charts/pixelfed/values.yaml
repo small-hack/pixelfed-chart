@@ -28,10 +28,10 @@ fullnameOverride: ""
 # -- how many revisions of the deployment to keep for rollbacks
 revisionHistoryLimit: 10
 
-# -- template out extra environment variables from ConfigMaps or Secrets
+# -- template out extra environment variables
 extraEnv: []
 
-# -- template out extra enviornment variables
+# -- template out extra environment variables e.g. from ConfigMaps or Secrets
 extraEnvFrom: []
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
@@ -261,7 +261,6 @@ valkey:
   # default: nano
   resourcesPreset: "small"
 
-
 postgresql:
   # -- enable the bundled [postgresql sub chart from Bitnami](https://github.com/bitnami/charts/blob/main/bitnami/postgresql/README.md#parameters).
   # Must set to true if externalDatabase.enabled=false
@@ -270,6 +269,10 @@ postgresql:
   global:
     storageClass: ""
 
+  volumePermissions:
+    # -- If you get "mkdir: cannot create directory ‘/bitnami/postgresql/data’: Permission denied"
+    # error, set these (This often happens on setups like minikube)
+    enabled: false
 
 # -- PHP Configuration files
 # Will be injected in /usr/local/etc/php-fpm.d

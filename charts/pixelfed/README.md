@@ -49,8 +49,8 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | externalValkey.port | string | `"6379"` |  |
 | externalValkey.scheme | string | `"tcp"` |  |
 | extraContainers | list | `[]` | set sidecar containers to run along side the pixelfed container |
-| extraEnv | list | `[]` | template out extra environment variables from ConfigMaps or Secrets |
-| extraEnvFrom | list | `[]` | template out extra enviornment variables |
+| extraEnv | list | `[]` | template out extra environment variables |
+| extraEnvFrom | list | `[]` | template out extra environment variables e.g. from ConfigMaps or Secrets |
 | extraInitContainers | list | `[]` | set extra init containers |
 | extraVolumeMounts | list | `[]` | Additional volumeMounts on the output Deployment definition |
 | extraVolumes | list | `[]` | Additional volumes on the output Deployment definition |
@@ -187,6 +187,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | postgresql.enabled | bool | `true` | enable the bundled [postgresql sub chart from Bitnami](https://github.com/bitnami/charts/blob/main/bitnami/postgresql/README.md#parameters). Must set to true if externalDatabase.enabled=false |
 | postgresql.fullnameOverride | string | `"postgresql"` |  |
 | postgresql.global.storageClass | string | `""` |  |
+| postgresql.volumePermissions.enabled | bool | `false` | If you get "mkdir: cannot create directory ‘/bitnami/postgresql/data’: Permission denied" error, set these (This often happens on setups like minikube) |
 | readinessProbe | object | `{}` | This is to setup the readiness probe more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ |
 | replicaCount | int | `1` | This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/ |
 | resources | object | `{}` | set resource limits and requests for cpu, memory, and ephemeral storage |
