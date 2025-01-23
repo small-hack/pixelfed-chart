@@ -129,6 +129,12 @@ data:
   DB_USERNAME: postgres
   DB_DATABASE: postgres
   {{- end }}
+  {{- if .Values.mariadb.enabled }}
+  DB_PORT: {{ .Values.mariadb.primary.service.ports.mysql | quote }}
+  DB_HOST: {{  .Values.mariadb.fullnameOverride  }}
+  DB_USERNAME: {{ .Values.mariadb.auth.username }}
+  DB_DATABASE: {{ .Values.mariadb.auth.database }}
+  {{- end }}
 
   # valkey (redis)
   {{- if .Values.valkey.enabled }}
