@@ -1,0 +1,14 @@
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim ) }}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "pixelfed.fullname" . }}
+spec:
+  storageClassName: {{ .Values.persistence.storageClassName }}
+  accessModes:
+    {{- toYaml .Values.persistence.accessModes | indent 4 }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.storage }}
+{{- end }}
