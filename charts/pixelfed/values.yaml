@@ -55,8 +55,7 @@ podAnnotations: {}
 podLabels: {}
 
 # -- securityContext for the whole pod
-podSecurityContext:
-  {}
+podSecurityContext: {}
   # runAsUser: 33
   # runAsGroup: 33
   # fsGroup: 33
