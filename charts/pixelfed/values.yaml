@@ -282,8 +282,7 @@ postgresql:
 
 # -- PHP Configuration files
 # Will be injected in /usr/local/etc/php-fpm.d
-phpConfigs:
-  {}
+phpConfigs:  {}
   # www.conf: |-
   #   [www]
   #   user = www-data
