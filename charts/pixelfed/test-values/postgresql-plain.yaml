@@ -27,3 +27,13 @@ postgresql:
     postgresPassword: testing1234567
     username: pixelfed
     database: pixelfed
+
+livenessProbe:
+  httpGet:
+    path: /api/service/health-check
+    port: http
+
+readinessProbe:
+  httpGet:
+    path: /api/service/health-check
+    port: http
