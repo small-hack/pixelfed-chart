@@ -19,9 +19,7 @@ version: 0.16.0
 
 # This is the version number of the application being deployed.
 # renovate:image=ghcr.io/mattlqx/docker-pixelfed
-appVersion: "7d1d62c8552683225456c2a552ba8ca36afb24b32f706e425310de5bf84aeab1"
-# the below verison is currently broken on migrations in postgresql :(
-# appVersion: "v0.12.4-nginx"
+appVersion: "v0.12.4-nginx"
 
 maintainers:
   - name: "jessebot"

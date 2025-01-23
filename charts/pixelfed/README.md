@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.16.0](https://img.shields.io/badge/Version-0.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7d1d62c8552683225456c2a552ba8ca36afb24b32f706e425310de5bf84aeab1](https://img.shields.io/badge/AppVersion-7d1d62c8552683225456c2a552ba8ca36afb24b32f706e425310de5bf84aeab1-informational?style=flat-square)
+![Version: 0.16.0](https://img.shields.io/badge/Version-0.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -58,7 +58,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` | This sets the pull policy for images. |
 | image.registry | string | `"ghcr.io"` |  |
 | image.repository | string | `"mattlqx/docker-pixelfed@sha256"` | you can see the source [ghcr.io/mattlqx/docker-pixelfed](https://ghcr.io/mattlqx/docker-pixelfed) |
-| image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. you may want to set this to dev-nginx if you experice issue with the default tag |
+| image.tag | string | `"7d1d62c8552683225456c2a552ba8ca36afb24b32f706e425310de5bf84aeab1"` | Overrides the image tag whose default is the chart appVersion (v0.12.4-nginx is currently broken due to migration errors with postgresl, so please either pin a sha tag or use dev-nging as the tag) |
 | imagePullSecrets | list | `[]` | This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/ |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` | ingress class name, e.g. nginx |
