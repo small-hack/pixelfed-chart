@@ -33,6 +33,6 @@ dependencies:
     condition: postgresql.enabled
 
   - name: valkey
-    version: 2.2.1
+    version: 2.2.3
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: valkey.enabled
