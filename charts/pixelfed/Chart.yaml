@@ -19,7 +19,7 @@ version: 0.16.0
 
 # This is the version number of the application being deployed.
 # renovate:image=ghcr.io/mattlqx/docker-pixelfed
-appVersion: "sha256-ea7cbbfe5ba933a934b47cd1029fb5dbc19d437d0aa3f1a309cb5c82226795e8.sig"
+appVersion: "dev-nginx"
 # the below verison is currently broken on migrations :(
 # appVersion: "v0.12.4-nginx"
 

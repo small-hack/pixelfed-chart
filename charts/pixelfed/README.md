@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.16.0](https://img.shields.io/badge/Version-0.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: sha256-ea7cbbfe5ba933a934b47cd1029fb5dbc19d437d0aa3f1a309cb5c82226795e8.sig](https://img.shields.io/badge/AppVersion-sha256--ea7cbbfe5ba933a934b47cd1029fb5dbc19d437d0aa3f1a309cb5c82226795e8.sig-informational?style=flat-square)
+![Version: 0.16.0](https://img.shields.io/badge/Version-0.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: dev-nginx](https://img.shields.io/badge/AppVersion-dev--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
