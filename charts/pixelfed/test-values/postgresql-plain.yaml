@@ -1,0 +1,29 @@
+# This file is strictly for testing a base functionality of this chart
+# it uses postgresql and valkey and provides credentials for them as well as mail
+
+pixelfed:
+  mail:
+    username: test
+    password: testing1234567
+
+valkey:
+  auth:
+    enabled: true
+    password: testing1234567
+  primary:
+    replicaCount: 2
+    disableCommands:
+      - FLUSHALL
+    persistence:
+      enabled: false
+  replica:
+    replicaCount: 0
+    persistence:
+      enabled: false
+
+postgresql:
+  auth:
+    password: testing1234567
+    postgresPassword: testing1234567
+    username: pixelfed
+    database: pixelfed
