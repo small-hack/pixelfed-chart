@@ -9,7 +9,7 @@ replicaCount: 1
 image:
   registry: ghcr.io
   # -- you can see the source [ghcr.io/mattlqx/docker-pixelfed](https://ghcr.io/mattlqx/docker-pixelfed)
-  repository: mattlqx/docker-pixelfed
+  repository: mattlqx/docker-pixelfed@sha256
   # -- This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # -- Overrides the image tag whose default is the chart appVersion.
