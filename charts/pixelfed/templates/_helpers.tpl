@@ -35,7 +35,6 @@ Common labels
 */}}
 {{- define "pixelfed.labels" -}}
 helm.sh/chart: {{ include "pixelfed.chart" . }}
-{{ include "pixelfed.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,9 +44,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "pixelfed.selectorLabels" -}}
+{{- define "pixelfed.web.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "pixelfed.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/component: web
+{{- end }}
+
+{{/*
+Horizon selector labels
+*/}}
+{{- define "pixelfed.horizon.selectorLabels" -}}
+app.kubernetes.io/component: horizon
 {{- end }}
 
 {{/*

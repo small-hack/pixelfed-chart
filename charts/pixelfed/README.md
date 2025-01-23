@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.14.5](https://img.shields.io/badge/Version-0.14.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.15.0](https://img.shields.io/badge/Version-0.15.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -105,6 +105,8 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.force_https_urls | bool | `true` | Force https url generation |
 | pixelfed.horizon.dark_mode | bool | `false` | darkmode for the web interface in the admin panel |
 | pixelfed.horizon.prefix | string | `"horizon-"` | prefix will be used when storing all Horizon data in Redis |
+| pixelfed.horizon.replicas | int | `1` | Number of replicas for the Horizon deployment when running separately. Ignored if autoscaling is enabled. |
+| pixelfed.horizon.separate_deployment | bool | `false` | Enable running Laravel Horizon in a separate deployment. Allow to scale the backend queue workers independently. |
 | pixelfed.image_driver | string | `"gd"` | library to process images. options: "gd" (default), "imagick" |
 | pixelfed.image_quality | int | `80` | Set the image optimization quality, between 1-100. Lower uses less space, higher more quality |
 | pixelfed.instance.contact_email | string | `""` | The public contact email for your server |
