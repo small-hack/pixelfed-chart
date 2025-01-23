@@ -554,7 +554,7 @@ pixelfed:
       # --  key in existing Kubernetes Secret for password. If set, ignores mail.password
       password: ""
 
-  # Mail Configuration (Post-Installer)
+  # S3 Configuration (Required if .Values.pixelfed.pf.enable_cloud is true)
   s3:
     # -- s3 url including protocol such as https://s3.domain.com
     url: ""
