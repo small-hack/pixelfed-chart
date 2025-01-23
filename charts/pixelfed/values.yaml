@@ -108,8 +108,7 @@ resources:  {}
 
 # -- This is to setup the liveness probe
 # more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-livenessProbe:
-  {}
+livenessProbe:  {}
   #  httpGet:
   #    path: /api/service/health-check
   #    port: http
