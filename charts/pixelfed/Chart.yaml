@@ -15,11 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.15.0
+version: 0.16.0
 
 # This is the version number of the application being deployed.
 # renovate:image=ghcr.io/mattlqx/docker-pixelfed
-appVersion: "v0.12.4-nginx"
+appVersion: "sha256-ea7cbbfe5ba933a934b47cd1029fb5dbc19d437d0aa3f1a309cb5c82226795e8.sig"
+# the below verison is currently broken on migrations :(
+# appVersion: "v0.12.4-nginx"
 
 maintainers:
   - name: "jessebot"

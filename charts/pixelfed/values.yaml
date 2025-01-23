@@ -54,15 +54,19 @@ podAnnotations: {}
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
 
-# -- securityContext for the whole pod
-podSecurityContext: {}
-  # runAsUser: 33
-  # runAsGroup: 33
-  # fsGroup: 33
+# securityContext for the whole pixelfed pod
+podSecurityContext:
+  # -- user to run the pixelfed pod as
+  runAsUser: 33
+  # -- group to run the pixelfed pod as
+  runAsGroup: 33
+  # -- group to mount the filesystem as
+  fsGroup: 33
 
-# -- securityContext for the pixelfed container
-securityContext: {}
-  # runAsUser: 33
+# securityContext for the pixelfed container
+securityContext:
+  # -- user to run the pixelfed container as
+  runAsUser: 33
   # runAsNonRoot: true
   # readOnlyRootFilesystem: true
   # capabilities:

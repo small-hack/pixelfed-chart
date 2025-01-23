@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.15.0](https://img.shields.io/badge/Version-0.15.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.16.0](https://img.shields.io/badge/Version-0.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: sha256-ea7cbbfe5ba933a934b47cd1029fb5dbc19d437d0aa3f1a309cb5c82226795e8.sig](https://img.shields.io/badge/AppVersion-sha256--ea7cbbfe5ba933a934b47cd1029fb5dbc19d437d0aa3f1a309cb5c82226795e8.sig-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -183,7 +183,9 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.webfinger | string | `"true"` | https://docs.pixelfed.org/technical-documentation/config/#webfinger |
 | podAnnotations | object | `{}` | This is for setting Kubernetes Annotations to a Pod. For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ |
 | podLabels | object | `{}` | This is for setting Kubernetes Labels to a Pod. For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ |
-| podSecurityContext | object | `{}` | securityContext for the whole pod |
+| podSecurityContext.fsGroup | int | `33` | group to mount the filesystem as |
+| podSecurityContext.runAsGroup | int | `33` | group to run the pixelfed pod as |
+| podSecurityContext.runAsUser | int | `33` | user to run the pixelfed pod as |
 | postgresql.enabled | bool | `true` | enable the bundled [postgresql sub chart from Bitnami](https://github.com/bitnami/charts/blob/main/bitnami/postgresql/README.md#parameters). Must set to true if externalDatabase.enabled=false |
 | postgresql.fullnameOverride | string | `"postgresql"` |  |
 | postgresql.global.storageClass | string | `""` |  |
@@ -192,7 +194,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | replicaCount | int | `1` | This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/ |
 | resources | object | `{}` | set resource limits and requests for cpu, memory, and ephemeral storage |
 | revisionHistoryLimit | int | `10` | how many revisions of the deployment to keep for rollbacks |
-| securityContext | object | `{}` | securityContext for the pixelfed container |
+| securityContext.runAsUser | int | `33` | user to run the pixelfed container as |
 | service.port | int | `80` | This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports |
 | service.targetPort | int | `80` | Port to attach to on the pods. Also sets what port nginx listens on inside the container. |
 | service.type | string | `"ClusterIP"` | This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types |
