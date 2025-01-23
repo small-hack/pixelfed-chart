@@ -83,4 +83,4 @@ jobs:
         run: |
             ct install \
               --target-branch ${{ github.event.repository.default_branch }} \
-              --helm-extra-set-args "--set=pixelfed.mail.username=test --set=pixelfed.mail.password=test"
+              --helm-extra-set-args "--set=pixelfed.mail.username=test --set=pixelfed.mail.password=testing1234567 --set=valkey.auth.password=testing1234567 --set=postgresql.auth.password=testing1234567 --set=postgresql.auth.postgresPassword=testing1234567 --set=postgresql.auth.database=pixelfed --set=postgresql.auth.username=pixelfed"
