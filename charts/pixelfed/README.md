@@ -14,6 +14,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 
 | Repository | Name | Version |
 |------------|------|---------|
+| oci://registry-1.docker.io/bitnamicharts | mariadb | 20.2.2 |
 | oci://registry-1.docker.io/bitnamicharts | postgresql | 16.4.5 |
 | oci://registry-1.docker.io/bitnamicharts | valkey | 2.2.3 |
 
@@ -68,6 +69,7 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
 | livenessProbe | object | `{}` | This is to setup the liveness probe more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ |
+| mariadb.enabled | bool | `false` | enable mariadb subchart - currently experiemental for this chart read more about the values here: https://github.com/bitnami/charts/tree/main/bitnami/mariadb |
 | nameOverride | string | `""` | This is to override the chart name. |
 | nodeSelector | object | `{}` | put the pixelfed pod on a specific node/nodegroup |
 | phpConfigs | object | `{}` | PHP Configuration files Will be injected in /usr/local/etc/php-fpm.d |

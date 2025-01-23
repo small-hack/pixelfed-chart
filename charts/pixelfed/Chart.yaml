@@ -36,3 +36,8 @@ dependencies:
     version: 2.2.3
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: valkey.enabled
+
+  - name: mariadb
+    version: 20.2.2
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: mariadb.enabled
