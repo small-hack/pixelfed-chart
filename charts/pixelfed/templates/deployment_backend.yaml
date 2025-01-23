@@ -1,16 +1,18 @@
+{{- if .Values.pixelfed.horizon.separate_deployment }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "pixelfed.fullname" . }}
+  name: {{ include "pixelfed.fullname" . }}-backend
   labels:
     {{- include "pixelfed.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.pixelfed.horizon.replicas }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "pixelfed.web.selectorLabels" . | nindent 6 }}
+      {{- include "pixelfed.horizon.selectorLabels" . | nindent 6 }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   template:
     metadata:
@@ -22,7 +24,7 @@ spec:
           {{- toYaml . | nindent 8 }}
         {{- end }}
       labels:
-        {{- include "pixelfed.web.selectorLabels" . | nindent 8 }}
+        {{- include "pixelfed.horizon.selectorLabels" . | nindent 8 }}
         {{- include "pixelfed.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
@@ -42,21 +44,15 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        {{- with .Values.extraContainers }}
-          {{- toYaml . | nindent 10 }}
-        {{- end }}
-        - name: {{ .Chart.Name }}
+        - name: {{ .Chart.Name }}-backend
           {{- with .Values.securityContext }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.targetPort }}
-              protocol: TCP
-
+          command: ["php"]
+          args: ["artisan", "horizon"]
           envFrom:
             {{- with .Values.extraEnvFrom }}
               {{- toYaml . | nindent 12 }}
@@ -67,10 +63,6 @@ spec:
             {{- with .Values.extraEnv }}
               {{- toYaml . | nindent 12 }}
             {{- end }}
-
-            # Run horizon inside this pod dependent upon the separate_deployment flag
-            - name: ENABLE_HORIZON
-              value: "{{ not .Values.pixelfed.horizon.separate_deployment }}"
 
             # pixelfed app key
             - name: APP_KEY
@@ -128,51 +120,6 @@ spec:
                   key: valkey-password
                   {{- end }}
 
-            # mail
-            - name: MAIL_HOST
-              valueFrom:
-                secretKeyRef:
-                  {{- if .Values.pixelfed.mail.existingSecret }}
-                  name: {{ .Values.pixelfed.mail.existingSecret }}
-                  key: {{ .Values.pixelfed.mail.existingSecretKeys.host }}
-                  {{- else }}
-                  name: {{ include "pixelfed.fullname" . }}-mail
-                  key: host
-                  {{- end }}
-
-            - name: MAIL_PORT
-              valueFrom:
-                secretKeyRef:
-                  {{- if .Values.pixelfed.mail.existingSecret }}
-                  name: {{ .Values.pixelfed.mail.existingSecret }}
-                  key: {{ .Values.pixelfed.mail.existingSecretKeys.port }}
-                  {{- else }}
-                  name: {{ include "pixelfed.fullname" . }}-mail
-                  key: port
-                  {{- end }}
-
-            - name: MAIL_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  {{- if .Values.pixelfed.mail.existingSecret }}
-                  name: {{ .Values.pixelfed.mail.existingSecret }}
-                  key: {{ .Values.pixelfed.mail.existingSecretKeys.username }}
-                  {{- else }}
-                  name: {{ include "pixelfed.fullname" . }}-mail
-                  key: username
-                  {{- end }}
-
-            - name: MAIL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  {{- if .Values.pixelfed.mail.existingSecret }}
-                  name: {{ .Values.pixelfed.mail.existingSecret }}
-                  key: {{ .Values.pixelfed.mail.existingSecretKeys.password }}
-                  {{- else }}
-                  name: {{ include "pixelfed.fullname" . }}-mail
-                  key: password
-                  {{- end }}
-
             # database configuration
             {{- if .Values.externalDatabase.enabled }}
             - name: DB_HOST
@@ -198,7 +145,7 @@ spec:
                   name: {{ include "pixelfed.fullname" . }}-database
                   key: username
                   {{- end }}
-              {{- end }}
+            {{- end }}
 
             {{- if .Values.externalDatabase.enabled }}
             - name: DB_DATABASE
@@ -211,7 +158,7 @@ spec:
                   name: {{ include "pixelfed.fullname" . }}-database
                   key: database
                   {{- end }}
-              {{- end }}
+            {{- end }}
 
             {{- if .Values.externalDatabase.enabled }}
             - name: DB_PORT
@@ -224,7 +171,7 @@ spec:
                   name: {{ include "pixelfed.fullname" . }}-database
                   key: port
                   {{- end }}
-              {{- end }}
+            {{- end }}
 
             - name: DB_PASSWORD
               {{- if and .Values.externalDatabase.enabled (not .Values.externalDatabase.existingSecret) }}
@@ -243,16 +190,6 @@ spec:
                   key: postgres-password
                   {{- end }}
               {{- end }}
-
-          {{- with .Values.livenessProbe }}
-          livenessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
-
-          {{- with .Values.readinessProbe }}
-          readinessProbe:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
 
           {{- with .Values.resources }}
           resources:
@@ -294,3 +231,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+{{- end }}

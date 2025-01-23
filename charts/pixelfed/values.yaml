@@ -332,6 +332,10 @@ pixelfed:
     prefix: "horizon-"
     # -- darkmode for the web interface in the admin panel
     dark_mode: false
+    # -- Enable running Laravel Horizon in a separate deployment. Allow to scale the backend queue workers independently.
+    separate_deployment: false
+    # -- Number of replicas for the Horizon deployment when running separately. Ignored if autoscaling is enabled.
+    replicas: 1
 
   # app specific settings
   app:
