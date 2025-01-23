@@ -10,9 +10,7 @@ data:
   APP_PORT: {{ .Values.service.targetPort | quote}}
   APP_URL: {{ .Values.pixelfed.app.url }}
   APP_LOCALE: {{ .Values.pixelfed.app.locale }}
-  {{- with .Values.pixelfed.app.domain }}
-  APP_DOMAIN: {{ . }}
-  {{- end }}
+  APP_DOMAIN: {{ .Values.pixelfed.app.domain | required ".Values.pixelfed.app.domain is required" }}
 
   {{- with .Values.pixelfed.exp_loops }}
   EXP_LOOPS: {{ . }}

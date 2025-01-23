@@ -26,8 +26,9 @@
       },
       {
         "matchManagers": ["github-actions"],
-        "matchUpdateTypes": ["patch","minor"],
-        "automerge": true
+        "matchUpdateTypes": ["patch", "minor"],
+        "automerge": true,
+        "ignoreTests": true
       }
     ]
 }

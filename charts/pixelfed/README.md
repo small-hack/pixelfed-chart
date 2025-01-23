@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: 0.15.0](https://img.shields.io/badge/Version-0.15.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.16.0](https://img.shields.io/badge/Version-0.16.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -57,8 +57,8 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | fullnameOverride | string | `""` | This is to override the chart name, but used in more places |
 | image.pullPolicy | string | `"IfNotPresent"` | This sets the pull policy for images. |
 | image.registry | string | `"ghcr.io"` |  |
-| image.repository | string | `"mattlqx/docker-pixelfed"` | you can see the source [ghcr.io/mattlqx/docker-pixelfed](https://ghcr.io/mattlqx/docker-pixelfed) |
-| image.tag | string | `""` | Overrides the image tag whose default is the chart appVersion. you may want to set this to dev-nginx if you experice issue with the default tag |
+| image.repository | string | `"mattlqx/docker-pixelfed@sha256"` | you can see the source [ghcr.io/mattlqx/docker-pixelfed](https://ghcr.io/mattlqx/docker-pixelfed) |
+| image.tag | string | `"7d1d62c8552683225456c2a552ba8ca36afb24b32f706e425310de5bf84aeab1"` | Overrides the image tag whose default is the chart appVersion (v0.12.4-nginx is currently broken due to migration errors with postgresl, so please either pin a sha tag or use dev-nging as the tag) |
 | imagePullSecrets | list | `[]` | This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/ |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` | ingress class name, e.g. nginx |
@@ -183,7 +183,9 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | pixelfed.webfinger | string | `"true"` | https://docs.pixelfed.org/technical-documentation/config/#webfinger |
 | podAnnotations | object | `{}` | This is for setting Kubernetes Annotations to a Pod. For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ |
 | podLabels | object | `{}` | This is for setting Kubernetes Labels to a Pod. For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ |
-| podSecurityContext | object | `{}` | securityContext for the whole pod |
+| podSecurityContext.fsGroup | int | `33` | group to mount the filesystem as |
+| podSecurityContext.runAsGroup | int | `33` | group to run the pixelfed pod as |
+| podSecurityContext.runAsUser | int | `33` | user to run the pixelfed pod as |
 | postgresql.enabled | bool | `true` | enable the bundled [postgresql sub chart from Bitnami](https://github.com/bitnami/charts/blob/main/bitnami/postgresql/README.md#parameters). Must set to true if externalDatabase.enabled=false |
 | postgresql.fullnameOverride | string | `"postgresql"` |  |
 | postgresql.global.storageClass | string | `""` |  |
@@ -192,9 +194,9 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | replicaCount | int | `1` | This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/ |
 | resources | object | `{}` | set resource limits and requests for cpu, memory, and ephemeral storage |
 | revisionHistoryLimit | int | `10` | how many revisions of the deployment to keep for rollbacks |
-| securityContext | object | `{}` | securityContext for the pixelfed container |
+| securityContext.runAsUser | int | `33` | user to run the pixelfed container as |
 | service.port | int | `80` | This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports |
-| service.targetPort | int | `80` | Port to attach to on the pods. Also sets what port nginx listens on inside the container. |
+| service.targetPort | int | `8080` | Port to attach to on the pods. Also sets what port nginx listens on inside the container. |
 | service.type | string | `"ClusterIP"` | This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.automount | bool | `true` | Automatically mount a ServiceAccount's API credentials? |

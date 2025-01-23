@@ -9,12 +9,13 @@ replicaCount: 1
 image:
   registry: ghcr.io
   # -- you can see the source [ghcr.io/mattlqx/docker-pixelfed](https://ghcr.io/mattlqx/docker-pixelfed)
-  repository: mattlqx/docker-pixelfed
+  repository: mattlqx/docker-pixelfed@sha256
   # -- This sets the pull policy for images.
   pullPolicy: IfNotPresent
-  # -- Overrides the image tag whose default is the chart appVersion.
-  # you may want to set this to dev-nginx if you experice issue with the default tag
-  tag: ""
+  # -- Overrides the image tag whose default is the chart appVersion
+  # (v0.12.4-nginx is currently broken due to migration errors with postgresl,
+  # so please either pin a sha tag or use dev-nging as the tag)
+  tag: "7d1d62c8552683225456c2a552ba8ca36afb24b32f706e425310de5bf84aeab1"
 
 # -- This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
@@ -54,15 +55,19 @@ podAnnotations: {}
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
 
-# -- securityContext for the whole pod
-podSecurityContext: {}
-  # runAsUser: 33
-  # runAsGroup: 33
-  # fsGroup: 33
+# securityContext for the whole pixelfed pod
+podSecurityContext:
+  # -- user to run the pixelfed pod as
+  runAsUser: 33
+  # -- group to run the pixelfed pod as
+  runAsGroup: 33
+  # -- group to mount the filesystem as
+  fsGroup: 33
 
-# -- securityContext for the pixelfed container
-securityContext: {}
-  # runAsUser: 33
+# securityContext for the pixelfed container
+securityContext:
+  # -- user to run the pixelfed container as
+  runAsUser: 33
   # runAsNonRoot: true
   # readOnlyRootFilesystem: true
   # capabilities:
@@ -76,7 +81,7 @@ service:
   # -- This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
   port: 80
   # -- Port to attach to on the pods. Also sets what port nginx listens on inside the container.
-  targetPort: 80
+  targetPort: 8080
 
 # This block is for setting up the ingress for more information can be found here:
 # https://kubernetes.io/docs/concepts/services-networking/ingress/
