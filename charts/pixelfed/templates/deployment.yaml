@@ -282,8 +282,12 @@ spec:
         {{- end }}
         {{- if .Values.persistence.enabled }}
         - name: storage
-          persistentVolumeclaim:
+          persistentVolumeClaim:
+            {{- if .Values.persistence.existingClaim }}
             claimName: {{ .Values.persistence.existingClaim }}
+            {{- else }}
+            claimName: {{ include "pixelfed.fullname" . }}
+            {{- end }}
         {{- end }}
         {{- if .Values.phpConfigs }}
         - name: phpconfig

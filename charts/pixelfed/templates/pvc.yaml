@@ -5,8 +5,9 @@ apiVersion: v1
 metadata:
   name: {{ include "pixelfed.fullname" . }}
 spec:
+  storageClassName: {{ .Values.persistence.storageClassName }}
   accessModes:
-    - ReadWriteOnce
+    {{- toYaml .Values.persistence.accessModes | indent 4 }}
   resources:
     requests:
       storage: {{ .Values.persistence.storage }}

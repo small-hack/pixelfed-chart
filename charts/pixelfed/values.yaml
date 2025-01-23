@@ -309,8 +309,13 @@ phpConfigs: {}
 persistence:
   # -- enable persistence for the pixelfed pod
   enabled: false
+  # -- storage class name
+  storageClassName: ""
   # -- size of the persistent volume claim to create. Tgnored if persistence.existingClaim is set
   storage: 2Gi
+  # -- accessMode
+  accessModes:
+    - ReadWriteOnce
   # -- using an existing PVC instead of creating one with this chart
   existingClaim: ""
 
