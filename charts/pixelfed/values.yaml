@@ -2,10 +2,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# -- This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+# -- This will set the replicaset count more information can be found here:
+# https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
-# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+# This sets the container image more information can be found here:
+# https://kubernetes.io/docs/concepts/containers/images/
 image:
   registry: ghcr.io
   # -- you can see the source [ghcr.io/mattlqx/docker-pixelfed](https://ghcr.io/mattlqx/docker-pixelfed)
@@ -17,7 +19,9 @@ image:
   # so please either pin a sha tag or use dev-nging as the tag)
   tag: "7d1d62c8552683225456c2a552ba8ca36afb24b32f706e425310de5bf84aeab1"
 
-# -- This is for the secretes for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+# -- This is for the secretes for pulling an image from a private repository
+# more information can be found here:
+# https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []
 
 # -- This is to override the chart name.
@@ -35,7 +39,8 @@ extraEnv: []
 # -- template out extra environment variables e.g. from ConfigMaps or Secrets
 extraEnvFrom: []
 
-# This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
+# This section builds out the service account more information can be found here:
+# https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
   # -- Specifies whether a service account should be created
   create: true
@@ -48,11 +53,13 @@ serviceAccount:
   name: ""
 
 # -- This is for setting Kubernetes Annotations to a Pod.
-# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+# For more information checkout:
+# https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 podAnnotations: {}
 
 # -- This is for setting Kubernetes Labels to a Pod.
-# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+# For more information checkout:
+# https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
 
 # securityContext for the whole pixelfed pod
@@ -74,11 +81,14 @@ securityContext:
   #   drop:
   #   - ALL
 
-# This is for setting up a service more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/
+# This is for setting up a service more information can be found here:
+# https://kubernetes.io/docs/concepts/services-networking/service/
 service:
-  # -- This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  # -- This sets the service type more information can be found here:
+  # https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
   type: ClusterIP
-  # -- This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  # -- This sets the ports more information can be found here:
+  # https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
   port: 80
   # -- Port to attach to on the pods. Also sets what port nginx listens on inside the container.
   targetPort: 8080
@@ -112,21 +122,24 @@ resources: {}
   #   memory: 128Mi
 
 # -- This is to setup the liveness probe
-# more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+# more information can be found here:
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 livenessProbe: {}
   #  httpGet:
   #    path: /api/service/health-check
   #    port: http
 
 # -- This is to setup the readiness probe
-# more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+# more information can be found here:
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 readinessProbe: {}
   #  httpGet:
   #    path: /api/service/health-check
   #    port: http
 
 autoscaling:
-  # -- enable autoscaling. more information can be found [here](https://kubernetes.io/docs/concepts/workloads/autoscaling/)
+  # -- enable autoscaling. more information can be found
+  # [here](https://kubernetes.io/docs/concepts/workloads/autoscaling/)
   enabled: false
   # -- minimum replicas to always keep up
   minReplicas: 1
@@ -589,6 +602,22 @@ pixelfed:
       secret_access_key: ""
 
 mariadb:
-  # -- enable mariadb subchart - currently experiemental for this chart
-  # read more about the values here: https://github.com/bitnami/charts/tree/main/bitnami/mariadb
+  # -- enable mariadb subchart - currently experimental for this chart
+  # read more about the values: https://github.com/bitnami/charts/tree/main/bitnami/mariadb
   enabled: false
+  auth:
+    # -- Name for a custom database to create
+    database: "pixelfed"
+    # -- Name for a custom user to create
+    username: "pixelfed"
+    # -- Password for the root user. Ignored if existing secret is provided.
+    rootPassword: "newRootPassword123"
+    # -- Password for the new user. Ignored if existing secret is provided
+    password: "newUserPassword123"
+    # -- MariaDB replication user password. Ignored if existing secret is provided
+    replicationPassword: "newReplicationPassword123"
+    # -- Use existing secret for password details (auth.rootPassword,
+    # auth.password, auth.replicationPassword will be ignored and picked up
+    # from this secret). The secret has to contain the keys mariadb-root-password,
+    # mariadb-replication-password and mariadb-password
+    existingSecret: new-password-secret

@@ -69,7 +69,13 @@ A Helm chart for deploying Pixelfed on Kubernetes
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
 | livenessProbe | object | `{}` | This is to setup the liveness probe more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/ |
-| mariadb.enabled | bool | `false` | enable mariadb subchart - currently experiemental for this chart read more about the values here: https://github.com/bitnami/charts/tree/main/bitnami/mariadb |
+| mariadb.auth.database | string | `"pixelfed"` | Name for a custom database to create |
+| mariadb.auth.existingSecret | string | `"new-password-secret"` | Use existing secret for password details (auth.rootPassword, auth.password, auth.replicationPassword will be ignored and picked up from this secret). The secret has to contain the keys mariadb-root-password, mariadb-replication-password and mariadb-password |
+| mariadb.auth.password | string | `"newUserPassword123"` | Password for the new user. Ignored if existing secret is provided |
+| mariadb.auth.replicationPassword | string | `"newReplicationPassword123"` | MariaDB replication user password. Ignored if existing secret is provided |
+| mariadb.auth.rootPassword | string | `"newRootPassword123"` | Password for the root user. Ignored if existing secret is provided. |
+| mariadb.auth.username | string | `"pixelfed"` | Name for a custom user to create |
+| mariadb.enabled | bool | `false` | enable mariadb subchart - currently experimental for this chart read more about the values: https://github.com/bitnami/charts/tree/main/bitnami/mariadb |
 | nameOverride | string | `""` | This is to override the chart name. |
 | nodeSelector | object | `{}` | put the pixelfed pod on a specific node/nodegroup |
 | phpConfigs | object | `{}` | PHP Configuration files Will be injected in /usr/local/etc/php-fpm.d |
