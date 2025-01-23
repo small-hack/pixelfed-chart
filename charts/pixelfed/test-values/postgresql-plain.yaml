@@ -2,6 +2,8 @@
 # it uses postgresql and valkey and provides credentials for them as well as mail
 
 pixelfed:
+  app:
+    domain: "example.com"
   mail:
     username: test
     password: testing1234567

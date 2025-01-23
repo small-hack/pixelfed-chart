@@ -25,6 +25,7 @@ Uses @mattlqx's [docker image](https://ghcr.io/mattlqx/docker-pixelfed) which is
 helm repo add pixelfed https://small-hack.github.io/pixelfed-chart
 
 # download the values.yaml and edit it with your own values such as YOUR hostname
+# especially important is pixelfed.app.domain
 helm show values pixelfed/pixelfed > values.yaml
 
 # install the chart
