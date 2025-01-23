@@ -61,7 +61,7 @@ podSecurityContext: {}
   # fsGroup: 33
 
 # -- securityContext for the pixelfed container
-securityContext:  {}
+securityContext: {}
   # runAsUser: 33
   # runAsNonRoot: true
   # readOnlyRootFilesystem: true
@@ -98,7 +98,7 @@ ingress:
   #      - chart-example.local
 
 # -- set resource limits and requests for cpu, memory, and ephemeral storage
-resources:  {}
+resources: {}
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -108,14 +108,14 @@ resources:  {}
 
 # -- This is to setup the liveness probe
 # more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-livenessProbe:  {}
+livenessProbe: {}
   #  httpGet:
   #    path: /api/service/health-check
   #    port: http
 
 # -- This is to setup the readiness probe
 # more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-readinessProbe:  {}
+readinessProbe: {}
   #  httpGet:
   #    path: /api/service/health-check
   #    port: http
@@ -277,7 +277,7 @@ postgresql:
 
 # -- PHP Configuration files
 # Will be injected in /usr/local/etc/php-fpm.d
-phpConfigs:  {}
+phpConfigs: {}
   # www.conf: |-
   #   [www]
   #   user = www-data
