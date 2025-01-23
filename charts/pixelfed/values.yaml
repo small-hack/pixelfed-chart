@@ -269,11 +269,10 @@ postgresql:
   global:
     storageClass: ""
 
-  ## If you get "mkdir: cannot create directory ‘/bitnami/postgresql/data’: Permission denied"
-  ## error, set these
-  ## (This often happens on setups like minikube)
-  # volumePermissions:
-  #   enabled: true
+  volumePermissions:
+    # -- If you get "mkdir: cannot create directory ‘/bitnami/postgresql/data’: Permission denied"
+    # error, set these (This often happens on setups like minikube)
+    enabled: false
 
 # -- PHP Configuration files
 # Will be injected in /usr/local/etc/php-fpm.d
