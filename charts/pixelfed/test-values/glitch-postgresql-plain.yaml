@@ -1,0 +1,62 @@
+# This file is strictly for testing a base functionality of this chart
+# it uses postgresql and valkey and provides credentials for them as well as mail
+
+image:
+  registry: docker.io
+  repository: jessebot/pixelfed-glitch
+  tag: v0.12.4-glitch.1.8.0-nginx
+
+pixelfed:
+  app:
+    domain: "example.com"
+  mail:
+    username: test
+    password: testing1234567
+
+# VALKEY
+valkey:
+  auth:
+    enabled: true
+    password: testing1234567
+
+  primary:
+    replicaCount: 2
+    disableCommands:
+      - FLUSHALL
+    persistence:
+      enabled: false
+
+  replica:
+    replicaCount: 0
+    persistence:
+      enabled: false
+
+# POSTGRES
+postgresql:
+  auth:
+    password: testing1234567
+    postgresPassword: testing1234567
+    username: pixelfed
+    database: pixelfed
+
+# LIVENESS PROBE
+livenessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  httpGet:
+    path: /api/service/health-check
+    port: http
+
+# READINESS PROBE
+readinessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  httpGet:
+    path: /api/service/health-check
+    port: http

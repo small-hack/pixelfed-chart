@@ -84,3 +84,45 @@ jobs:
             ct install \
                 --target-branch ${{ github.event.repository.default_branch }} \
                 --helm-extra-set-args "--values ./charts/pixelfed/test-values/postgresql-plain.yaml"
+
+  glitch_test_plain:
+    name: Test chart plain + with pixelfed-glitch
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: "0"
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+
+      - name: Set glitch up chart-testing
+        uses: helm/chart-testing-action@v2.7.0
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          if [[ -n "$changed" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.12.0
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Run glitch chart-testing (install)
+        id: install
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+            ct install \
+                --target-branch ${{ github.event.repository.default_branch }} \
+                --helm-extra-set-args "--values ./charts/pixelfed/test-values/glitch-postgresql-plain.yaml"
