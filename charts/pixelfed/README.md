@@ -85,8 +85,6 @@ helm install --namespace pixelfed --create-namespace pixelfed/pixelfed --values 
 
 ## Maintainers
 
-## Maintainers
-
 | Name | Email | Url |
 | ---- | ------ | --- |
 | jessebot | <jessebot@linux.com> | <https://github.com/jessebot> |
