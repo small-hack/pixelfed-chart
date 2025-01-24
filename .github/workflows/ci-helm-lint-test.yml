@@ -86,7 +86,7 @@ jobs:
                 --helm-extra-set-args "--values ./charts/pixelfed/test-values/postgresql-plain.yaml"
 
   glitch_test_plain:
-    name: Test chart plain
+    name: Test chart plain + with pixelfed-glitch
     runs-on: ubuntu-latest
     needs: lint
     steps:
@@ -125,4 +125,4 @@ jobs:
         run: |
             ct install \
                 --target-branch ${{ github.event.repository.default_branch }} \
-                --helm-extra-set-args "--values ./charts/pixelfed/test-values/glitch_postgresql-plain.yaml"
+                --helm-extra-set-args "--values ./charts/pixelfed/test-values/glitch-postgresql-plain.yaml"
