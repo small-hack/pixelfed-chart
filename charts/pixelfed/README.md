@@ -126,8 +126,6 @@ persistence:
 
 ## Values (helm parameters from values.yaml)
 
-## Values
-
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | set affinity to specific nodes or nodegroups |
