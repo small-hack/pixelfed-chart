@@ -3,7 +3,7 @@
 
 image:
   registry: docker.io
-  repo: jessebot/pixelfed-glitch
+  repository: jessebot/pixelfed-glitch
   tag: v0.12.4-glitch.1.8.0-nginx
 
 pixelfed:
