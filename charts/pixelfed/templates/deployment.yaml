@@ -37,9 +37,9 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.extraInitContainers }}
+      {{- with (include "pixelfed.mergedInitContainers" .) }}
       initContainers:
-        {{- toYaml . | nindent 8 }}
+        {{- . | nindent 8 }}
       {{- end }}
       containers:
         {{- with .Values.extraContainers }}
@@ -173,6 +173,48 @@ spec:
                   key: password
                   {{- end }}
 
+            # s3
+            - name: AWS_URL
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.pixelfed.s3.existingSecret }}
+                  name: {{ .Values.pixelfed.s3.existingSecret }}
+                  key: {{ .Values.pixelfed.s3.existingSecretKeys.url }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-s3
+                  key: url
+                  {{- end }}
+            - name: AWS_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.pixelfed.s3.existingSecret }}
+                  name: {{ .Values.pixelfed.s3.existingSecret }}
+                  key: {{ .Values.pixelfed.s3.existingSecretKeys.endpoint }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-s3
+                  key: endpoint
+                  {{- end }}
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.pixelfed.s3.existingSecret }}
+                  name: {{ .Values.pixelfed.s3.existingSecret }}
+                  key: {{ .Values.pixelfed.s3.existingSecretKeys.access_key_id }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-s3
+                  key: access_key_id
+                  {{- end }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  {{- if .Values.pixelfed.s3.existingSecret }}
+                  name: {{ .Values.pixelfed.s3.existingSecret }}
+                  key: {{ .Values.pixelfed.s3.existingSecretKeys.secret_access_key }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-s3
+                  key: secret_access_key
+                  {{- end }}
+            
             # database configuration
             {{- if .Values.externalDatabase.enabled }}
             - name: DB_HOST
@@ -259,10 +301,10 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
 
-          {{- if or .Values.extraVolumeMounts .Values.phpConfigs .Values.persistence.enabled }}
+          {{- if or (include "pixelfed.mergedVolumeMounts" .) .Values.phpConfigs .Values.persistence.enabled }}
           volumeMounts:
-            {{- with .Values.extraVolumeMounts }}
-              {{- toYaml . | nindent 12 }}
+            {{- with (include "pixelfed.mergedVolumeMounts" .) }}
+              {{- . | nindent 12 }}
             {{- end }}
             {{- range $key, $value := .Values.phpConfigs }}
             - name: phpconfig
@@ -275,10 +317,10 @@ spec:
             {{- end }}
           {{- end }}{{/* end volumeMounts */}}
 
-      {{- if or .Values.phpConfigs .Values.extraVolumes .Values.persistence.enabled }}
+      {{- if or .Values.phpConfigs (include "pixelfed.mergedVolumes" .) .Values.persistence.enabled }}
       volumes:
-        {{- with .Values.extraVolumes }}
-          {{- toYaml . | nindent 8 }}
+        {{- with (include "pixelfed.mergedVolumes" .) }}
+          {{- . | nindent 8 }}
         {{- end }}
         {{- if .Values.persistence.enabled }}
         - name: storage
