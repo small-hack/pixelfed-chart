@@ -382,11 +382,11 @@ persistence:
   enabled: false
   # -- storage class name
   storageClassName: ""
-  # -- size of the persistent volume claim to create. Tgnored if persistence.existingClaim is set
+  # -- size of the persistent volume claim to create. Ignored if persistence.existingClaim is set
   storage: 2Gi
-  # -- accessMode
+  # -- accessMode. Should be set to '["ReadWriteMany"]' for seperate worker to be able to upload from local storage to S3
   accessModes:
-    - ReadWriteOnce # TODO must be ReadWriteMany for seperate worker to work
+    - ReadWriteOnce
   # -- using an existing PVC instead of creating one with this chart
   existingClaim: ""
 
@@ -402,8 +402,7 @@ pixelfed:
     # For this reason, you may specify a default “cloud” driver here.
     # This driver will be bound as the Cloud disk implementation in the container.
     cloud: "s3"
-    # -- if you want to use s3, you need to set this to s3 TODO
-    driver: "s3"
+    driver: "local"
 
   covid:
     enable_label: true
@@ -591,7 +590,7 @@ pixelfed:
     # -- Enable S3/Object Storage
     enable_cloud: false
     # -- Posts are published without waiting for media to be optimized/uploaded to S3. However, posts may be federated without S3 urls.
-    media_fast_process: true #TODO test this as false
+    media_fast_process: true
     # -- Limit max user registrations
     max_users: 1000
     # -- in KB

@@ -199,10 +199,10 @@ persistence:
 | minio.tls.pixelfedVolumes | list | `[{"name":"minio-crt","secret":{"secretName":"minio-crt"}},{"emptyDir":{},"name":"cert-tmp"}]` | mounts for the minio certificate and the temporary directory |
 | nameOverride | string | `""` | This is to override the chart name. |
 | nodeSelector | object | `{}` | put the pixelfed pod on a specific node/nodegroup |
-| persistence.accessModes | list | `["ReadWriteOnce"]` | accessMode |
+| persistence.accessModes | list | `["ReadWriteOnce"]` | accessMode. Should be set to '["ReadWriteMany"]' for seperate worker to be able to upload from local storage to S3 |
 | persistence.enabled | bool | `false` | enable persistence for the pixelfed pod |
 | persistence.existingClaim | string | `""` | using an existing PVC instead of creating one with this chart |
-| persistence.storage | string | `"2Gi"` | size of the persistent volume claim to create. Tgnored if persistence.existingClaim is set |
+| persistence.storage | string | `"2Gi"` | size of the persistent volume claim to create. Ignored if persistence.existingClaim is set |
 | persistence.storageClassName | string | `""` | storage class name |
 | phpConfigs | object | `{}` | PHP Configuration files Will be injected in /usr/local/etc/php-fpm.d |
 | pixelfed.account_deletion | bool | `true` | Enable account deletion (may be a requirement in some jurisdictions) |
@@ -235,7 +235,7 @@ persistence:
 | pixelfed.exp_emc | bool | `true` | Experimental Configuration |
 | pixelfed.exp_loops | bool | `false` | exp loops (as in loops video? 🤷 |
 | pixelfed.filesystem.cloud | string | `"s3"` | Many applications store files both locally and in the cloud. For this reason, you may specify a default “cloud” driver here. This driver will be bound as the Cloud disk implementation in the container. |
-| pixelfed.filesystem.driver | string | `"s3"` | if you want to use s3, you need to set this to s3 TODO |
+| pixelfed.filesystem.driver | string | `"local"` |  |
 | pixelfed.force_https_urls | bool | `true` | Force https url generation |
 | pixelfed.horizon.dark_mode | bool | `false` | darkmode for the web interface in the admin panel |
 | pixelfed.horizon.prefix | string | `"horizon-"` | prefix will be used when storing all Horizon data in Redis |
