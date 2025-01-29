@@ -91,7 +91,6 @@ data:
   {{- end }}
 
   # filesystem
-  FILESYSTEM_DRIVER: {{ .Values.pixelfed.filesystem.driver }}
   FILESYSTEM_CLOUD: {{ .Values.pixelfed.filesystem.cloud }}
   MEDIA_DELETE_LOCAL_AFTER_CLOUD: {{ .Values.pixelfed.media_delete_local_after_cloud | quote }}
 
