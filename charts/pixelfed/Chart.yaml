@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.19.1
+version: 0.20.0
 
 # This is the version number of the application being deployed.
 # renovate:image=ghcr.io/mattlqx/docker-pixelfed
@@ -41,3 +41,8 @@ dependencies:
     version: 20.2.2
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: mariadb.enabled
+
+  - name: minio
+    version: 14.10.5
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: minio.enabled

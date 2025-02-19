@@ -120,6 +120,23 @@ data:
   MAIL_FROM_ADDRESS: "{{ .Values.pixelfed.mail.from_address }}"
   MAIL_FROM_NAME: "{{ .Values.pixelfed.mail.from_name }}"
 
+  # s3
+  AWS_VISIBILITY: {{ .Values.pixelfed.s3.visibility | quote }}
+  {{- if not .Values.minio.enabled }}
+  AWS_DEFAULT_REGION: {{ .Values.pixelfed.s3.region | quote }}
+  AWS_BUCKET: {{ .Values.pixelfed.s3.bucket | quote }}
+  AWS_USE_PATH_STYLE_ENDPOINT: {{ .Values.pixelfed.s3.use_path_style_endpoint | quote }}
+  {{- else }}
+  # when minio is enabled
+  {{- if .Values.pixelfed.s3.bucket }}
+  AWS_BUCKET: {{ .Values.pixelfed.s3.bucket | quote }}
+  {{- else if .Values.minio.provisioning.enabled }}
+  AWS_BUCKET: {{ index .Values.minio.provisioning.buckets 0 "name" | quote }}
+  {{- end }}
+  AWS_DEFAULT_REGION: "us-east-1" # unneeded for minio, but required for s3 driver
+  AWS_USE_PATH_STYLE_ENDPOINT: "true" # expected for minio
+  {{- end }}
+
   # database configuration
   DB_CONNECTION: {{ .Values.pixelfed.db.connection }}
   DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY: "{{ .Values.pixelfed.db.apply_new_migrations_automatically }}"

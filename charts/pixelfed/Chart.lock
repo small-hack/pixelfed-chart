@@ -8,5 +8,8 @@ dependencies:
 - name: mariadb
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 20.2.2
-digest: sha256:ab9c547cea93017a3a65f289e1573ee936a6925d3762200bb24d6e5dc512003c
-generated: "2025-01-23T22:50:42.4566+01:00"
+- name: minio
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 14.10.5
+digest: sha256:7df7ad6adc934f88fc660a95c9e9dd342f7daf39e0351b84415d4d8e7608e7e6
+generated: "2025-01-23T20:17:44.237852195-06:00"
