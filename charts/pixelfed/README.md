@@ -1,6 +1,6 @@
 # Pixelfed Helm Chart
 
-![Version: 0.19.3](https://img.shields.io/badge/Version-0.19.3-informational?style=flat-square)  ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
+![Version: 0.20.0](https://img.shields.io/badge/Version-0.20.0-informational?style=flat-square)  ![AppVersion: v0.12.4-nginx](https://img.shields.io/badge/AppVersion-v0.12.4--nginx-informational?style=flat-square)
 
 A Helm chart for deploying Pixelfed on Kubernetes
 
@@ -96,7 +96,7 @@ These are all subcharts that you can choose to install, but you can also bring y
 | Repository | Name | Version |
 |------------|------|---------|
 | oci://registry-1.docker.io/bitnamicharts | mariadb | 20.2.2 |
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 16.4.14 |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 16.6.0 |
 | oci://registry-1.docker.io/bitnamicharts | valkey | 2.2.3 |
 
 ### Sources for included subcharts
