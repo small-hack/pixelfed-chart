@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.22.0
+version: 0.23.0
 
 # This is the version number of the application being deployed.
 # renovate:image=ghcr.io/mattlqx/docker-pixelfed
@@ -38,6 +38,6 @@ dependencies:
     condition: valkey.enabled
 
   - name: mariadb
-    version: 20.2.2
+    version: 20.5.7
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: mariadb.enabled
