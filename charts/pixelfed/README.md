@@ -96,7 +96,7 @@ These are all subcharts that you can choose to install, but you can also bring y
 | Repository | Name | Version |
 |------------|------|---------|
 | oci://registry-1.docker.io/bitnamicharts | mariadb | 20.2.2 |
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 16.6.0 |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 16.7.10 |
 | oci://registry-1.docker.io/bitnamicharts | valkey | 2.4.7 |
 
 ### Sources for included subcharts
