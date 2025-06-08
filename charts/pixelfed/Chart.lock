@@ -4,9 +4,9 @@ dependencies:
   version: 16.6.0
 - name: valkey
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 2.2.3
+  version: 2.4.7
 - name: mariadb
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 20.2.2
-digest: sha256:361d44e959fdac1e7f4104b1b27bccadf8620ae46564e7d47437c69aa367e712
-generated: "2025-03-31T08:22:03.00040216Z"
+digest: sha256:02d03a21aee654c7531738393f3a6470ffd910d19be4ea57817774d0b0a6155c
+generated: "2025-06-08T14:31:07.274782857Z"
