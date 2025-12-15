@@ -47,7 +47,7 @@ data:
   INSTANCE_CONTACT_MAX_PER_DAY: {{ .Values.pixelfed.instance.contact_max_per_day | quote }}
   INSTANCE_DISCOVER_PUBLIC: {{ .Values.pixelfed.instance.discover_public | quote }}
   INSTANCE_PUBLIC_HASHTAGS: {{ .Values.pixelfed.instance.public_hashtags | quote }}
-  {{- with .Values.pixelfed.instance.contact_email }}
+  {{- if .Values.pixelfed.instance.contact_email }}
   INSTANCE_CONTACT_EMAIL: {{ .Values.pixelfed.instance.contact_email }}
   {{- end }}
   INSTANCE_PROFILE_EMBEDS: {{ .Values.pixelfed.instance.profile_embeds | quote }}
@@ -95,6 +95,17 @@ data:
   FILESYSTEM_CLOUD: {{ .Values.pixelfed.filesystem.cloud }}
   MEDIA_DELETE_LOCAL_AFTER_CLOUD: {{ .Values.pixelfed.media_delete_local_after_cloud | quote }}
 
+  # S3 configuration (non-secret values)
+  {{- if .Values.pixelfed.s3.bucket }}
+  AWS_BUCKET: {{ .Values.pixelfed.s3.bucket | quote }}
+  {{- end }}
+  {{- if .Values.pixelfed.s3.region }}
+  AWS_DEFAULT_REGION: {{ .Values.pixelfed.s3.region | quote }}
+  {{- end }}
+  {{- if .Values.pixelfed.s3.use_path_style_endpoint }}
+  AWS_USE_PATH_STYLE_ENDPOINT: {{ .Values.pixelfed.s3.use_path_style_endpoint | quote }}
+  {{- end }}
+
   # covid
   ENABLE_COVID_LABEL: {{ .Values.pixelfed.covid.enable_label | quote }}
   COVID_LABEL_URL: {{ .Values.pixelfed.covid.label_url | quote }}
@@ -140,7 +151,7 @@ data:
   {{- if .Values.valkey.enabled }}
   REDIS_HOST: {{ printf "%s-primary" (.Values.valkey.fullnameOverride) }}
   {{- else if and .Values.externalValkey.enabled (not .Values.externalValkey.existingSecret) (not .Values.externalValkey.existingSecretKeys.host) }}
-  REDIS_HOST: {{ .Values.externalValkey.port | quote }}
+  REDIS_HOST: {{ .Values.externalValkey.host | quote }}
   {{- end }}
 
   {{- if .Values.valkey.enabled }}
