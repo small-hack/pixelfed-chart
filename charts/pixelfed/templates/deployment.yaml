@@ -244,6 +244,59 @@ spec:
                   {{- end }}
               {{- end }}
 
+            # S3 configuration
+            {{- if or .Values.pixelfed.s3.url .Values.pixelfed.s3.existingSecret }}
+            - name: AWS_URL
+              valueFrom:
+                secretKeyRef:
+                  {{- if and .Values.pixelfed.s3.existingSecret .Values.pixelfed.s3.existingSecretKeys.url }}
+                  name: {{ .Values.pixelfed.s3.existingSecret }}
+                  key: {{ .Values.pixelfed.s3.existingSecretKeys.url }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-s3
+                  key: url
+                  {{- end }}
+            {{- end }}
+
+            {{- if or .Values.pixelfed.s3.endpoint .Values.pixelfed.s3.existingSecret }}
+            - name: AWS_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  {{- if and .Values.pixelfed.s3.existingSecret .Values.pixelfed.s3.existingSecretKeys.endpoint }}
+                  name: {{ .Values.pixelfed.s3.existingSecret }}
+                  key: {{ .Values.pixelfed.s3.existingSecretKeys.endpoint }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-s3
+                  key: endpoint
+                  {{- end }}
+            {{- end }}
+
+            {{- if or .Values.pixelfed.s3.access_key_id .Values.pixelfed.s3.existingSecret }}
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  {{- if and .Values.pixelfed.s3.existingSecret .Values.pixelfed.s3.existingSecretKeys.access_key_id }}
+                  name: {{ .Values.pixelfed.s3.existingSecret }}
+                  key: {{ .Values.pixelfed.s3.existingSecretKeys.access_key_id }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-s3
+                  key: access_key_id
+                  {{- end }}
+            {{- end }}
+
+            {{- if or .Values.pixelfed.s3.secret_access_key .Values.pixelfed.s3.existingSecret }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  {{- if and .Values.pixelfed.s3.existingSecret .Values.pixelfed.s3.existingSecretKeys.secret_access_key }}
+                  name: {{ .Values.pixelfed.s3.existingSecret }}
+                  key: {{ .Values.pixelfed.s3.existingSecretKeys.secret_access_key }}
+                  {{- else }}
+                  name: {{ include "pixelfed.fullname" . }}-s3
+                  key: secret_access_key
+                  {{- end }}
+            {{- end }}
+
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
